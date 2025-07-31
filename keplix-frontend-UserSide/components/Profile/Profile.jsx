@@ -1,9 +1,13 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { View, Text,SafeAreaView, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import Footer from "../Footer/Footer";
 
 const SettingsItem = ({ icon, title, navigation, targetScreen }) => (
-  <TouchableOpacity style={styles.settingsItem}  onPress={() => navigation.navigate(targetScreen)}>
+  <TouchableOpacity
+    style={styles.settingsItem}
+    onPress={() => navigation.navigate(targetScreen)}
+  >
     <View style={styles.settingsItemLeft}>
       <Ionicons name={icon} size={24} color="#000" />
       <Text style={styles.settingsItemText}>{title}</Text>
@@ -13,39 +17,41 @@ const SettingsItem = ({ icon, title, navigation, targetScreen }) => (
 );
 
 const NavItem = ({ icon, text, active, navigation, targetScreen }) => (
-  <TouchableOpacity 
-    style={styles.navItem} 
+  <TouchableOpacity
+    style={styles.navItem}
     onPress={() => navigation.navigate(targetScreen)}
   >
-    <Ionicons 
-      name={icon} 
-      size={34} 
-      color={active ? "#4E46B4" : "#666"} 
-    />
+    <Ionicons name={icon} size={34} color={active ? "#4E46B4" : "#666"} />
     <Text style={[styles.navText, active && styles.activeNavText]}>{text}</Text>
   </TouchableOpacity>
 );
 
-
-export default function Profile({navigation}) {
+export default function Profile({ navigation }) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+    
       <View style={styles.header}>
-         <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Ionicons name={"arrow-back-outline"} style={styles.icon} />
-              </TouchableOpacity>
-        <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.navigate('SignIn')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name={"arrow-back-outline"} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={() => navigation.navigate("SignIn")}
+        >
           <Text style={styles.logoutText}>Log out</Text>
           <Ionicons name="log-out-outline" size={20} color="#4E46B4" />
         </TouchableOpacity>
       </View>
 
       {/* Profile Section */}
-      <TouchableOpacity style={styles.profileSection} onPress={()=> navigation.navigate("UserProfile")}>
+      <TouchableOpacity
+        style={styles.profileSection}
+        onPress={() => navigation.navigate("UserProfile")}
+      >
         <View style={styles.profileInfo}>
-          <Image 
-            source={require('../../assets/images/3.jpeg')} // Replace with actual image path
-            style={styles.profileImage} 
+          <Image
+            source={require("../../assets/images/3.jpeg")} // Replace with actual image path
+            style={styles.profileImage}
           />
           <View>
             <Text style={styles.profileName}>Nithish Kumar</Text>
@@ -58,17 +64,47 @@ export default function Profile({navigation}) {
       {/* Settings Items */}
       <Text style={styles.sectionTitle}>Settings</Text>
       <View style={styles.settingsList}>
-        <SettingsItem icon="card" title="Payment Methods"  navigation={navigation} targetScreen='UpdatePayment' />
-        <SettingsItem icon="time-outline" title="Booking History" navigation={navigation} targetScreen='BookingList'/>
-        <SettingsItem icon="star" title="My Reviews"  navigation={navigation} targetScreen='ReviewList' />
-        <SettingsItem icon="shield" title="Security Settings" navigation={navigation} targetScreen='Security'/>
-        <SettingsItem icon="notifications" title="Notification Settings" navigation={navigation} targetScreen='Notification' />
-        <SettingsItem icon="help-circle-outline" title="Support & Help" navigation={navigation} targetScreen='Support'/>
+        <SettingsItem
+          icon="card"
+          title="Payment Methods"
+          navigation={navigation}
+          targetScreen="UpdatePayment"
+        />
+        <SettingsItem
+          icon="time-outline"
+          title="Booking History"
+          navigation={navigation}
+          targetScreen="BookingList"
+        />
+        <SettingsItem
+          icon="star"
+          title="My Reviews"
+          navigation={navigation}
+          targetScreen="ReviewList"
+        />
+        <SettingsItem
+          icon="shield"
+          title="Security Settings"
+          navigation={navigation}
+          targetScreen="Security"
+        />
+        <SettingsItem
+          icon="notifications"
+          title="Notification Settings"
+          navigation={navigation}
+          targetScreen="Notification"
+        />
+        <SettingsItem
+          icon="help-circle-outline"
+          title="Support & Help"
+          navigation={navigation}
+          targetScreen="Support"
+        />
       </View>
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-  <NavItem 
+        {/* <NavItem 
     icon="home" 
     text="Home"  
     navigation={navigation} 
@@ -92,22 +128,23 @@ export default function Profile({navigation}) {
     active 
     navigation={navigation} 
     targetScreen="Profile" 
-  />
-</View>
-
-    </View>
+  /> */}
+      </View>
+      <Footer navigation={navigation} />
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
+    padding: 20,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 16,
     padding: 20,
   },
@@ -122,57 +159,56 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   logoutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   logoutText: {
-    color: '#4E46B4',
+    color: "#4E46B4",
     fontSize: 16,
-   
   },
   profileSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 16,
-    width:'95%',
+    width: "95%",
     marginBottom: 20,
-    marginLeft:10,
+    marginLeft: 10,
     borderWidth: 2,
-    borderColor: '#E2E2E2',
+    borderColor: "#E2E2E2",
     borderRadius: 24,
   },
   profileInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   profileImage: {
     width: 60,
     height: 60,
     borderRadius: 16,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
   },
   profileName: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: "#333",
     fontWeight: "500",
     fontFamily: "DM",
   },
   profilePhone: {
     fontSize: 16,
-    color: '#0000008F',
+    color: "#0000008F",
     marginTop: 4,
     fontWeight: "500",
     fontFamily: "DM",
   },
   dropdownIcon: {
-    width:20,
+    width: 20,
     height: 30,
     fontSize: 18,
-    lineHeight:26,
+    lineHeight: 26,
     color: "#000",
     justifyContent: "center",
     alignItems: "center",
@@ -183,7 +219,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    color: '#0000008F',
+    color: "#0000008F",
     paddingHorizontal: 16,
     marginBottom: 8,
     fontWeight: "500",
@@ -193,42 +229,41 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   settingsItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 16,
     borderBottomWidth: 2,
-    borderBottomColor: '#E2E2E2',
-    width:'95%',
-    marginLeft:10,
+    borderBottomColor: "#E2E2E2",
+    width: "95%",
+    marginLeft: 10,
   },
   settingsItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   settingsItemText: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 15,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderTopWidth: 1,
-    borderTopColor: '#eee',
+    borderTopColor: "#eee",
   },
   navItem: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   navText: {
-    color: '#666',
+    color: "#666",
     fontSize: 12,
     marginTop: 5,
   },
   activeNavText: {
-    color: '#4E46B4',
+    color: "#4E46B4",
   },
 });
-
