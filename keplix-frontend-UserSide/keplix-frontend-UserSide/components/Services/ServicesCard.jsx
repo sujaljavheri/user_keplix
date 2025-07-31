@@ -14,7 +14,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import Footer from "../Footer/Footer";
+
 // 🔻 CategoryToggle pill component
 const CategoryToggle = ({ iconName, title, description, isExpanded, onPress }) => (
   <View style={styles.categorycontainer}>
@@ -171,7 +171,7 @@ export default function ServicesCard({ navigation }) {
         <CategoryToggle
           iconName="search"
           title="Inspection"
-          description="Routine checks and diagnostics with experts"
+          description="Routine checks and diagnostics"
           isExpanded={expandedSection === "Inspection"}
           onPress={() =>
             setExpandedSection(expandedSection === "Inspection" ? null : "Inspection")
@@ -186,7 +186,7 @@ export default function ServicesCard({ navigation }) {
         )}
       </ScrollView>
 
-      {/* <View style={styles.bottomNav}>
+      <View style={styles.bottomNav}>
         <NavItem
           icon="home"
           text="Home"
@@ -212,9 +212,7 @@ export default function ServicesCard({ navigation }) {
           navigation={navigation}
           targetScreen="Profile"
         />
-      </View> */}
-      <Footer navigation={navigation} />
-      
+      </View>
     </SafeAreaView>
   );
 }
@@ -223,7 +221,7 @@ export default function ServicesCard({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "black",
     padding: 20,
   },
   header: {
@@ -245,7 +243,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 50,
     padding: 5,
-    color: "black",
+    color: "white",
   },
   categorySection: {
     marginBottom: 20,

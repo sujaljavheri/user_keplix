@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, ScrollView } from 'react-native';
 import { Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
-import Footer from '../Footer/Footer';
+
 export default function BookingList ({ navigation }) {
   const [activeTab, setActiveTab] = useState('past');
 
@@ -128,7 +128,7 @@ export default function BookingList ({ navigation }) {
         ))}
       </ScrollView>
 
-      {/* <View style={styles.bottomNav}>
+      <View style={styles.bottomNav}>
         <NavItem 
           icon="home" 
           text="Home" 
@@ -154,8 +154,7 @@ export default function BookingList ({ navigation }) {
           navigation={navigation} 
           targetScreen="Profile" 
         />
-      </View> */}
-       <Footer navigation={navigation} />
+      </View>
       
     </SafeAreaView>
   );
