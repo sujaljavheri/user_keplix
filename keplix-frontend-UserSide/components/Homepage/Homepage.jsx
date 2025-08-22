@@ -146,71 +146,6 @@ export default function Homepage({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* Featured Services
-        <View style={styles.servicesSection}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Featured Services</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("ServicesCard")}
-            >
-              <Text style={styles.seeAllText}>See all</Text>
-            </TouchableOpacity>
-          </View>
-
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.servicesScroll}
-          >
-            <ServiceItem
-              icon="brush"
-              text="Detailing"
-              onPress={() =>
-                navigation.navigate("ProviderList", { service: "Detailing" })
-              }
-            />
-            <ServiceItem
-              icon="build"
-              text="Repairs"
-              onPress={() =>
-                navigation.navigate("ProviderList", { service: "Repairs" })
-              }
-            />
-            <ServiceItem
-              icon="file-copy"
-              text="Accessories"
-              onPress={() =>
-                navigation.navigate("ProviderList", { service: "Accessories" })
-              }
-            />
-            <ServiceItem
-              icon="file-copy"
-              text="Accessories"
-              onPress={() =>
-                navigation.navigate("ProviderList", { service: "Accessories" })
-              }
-            />
-          </ScrollView>
-        </View>
-         */}
-        {/* <FlatList
-  data={featuredServices}
-  keyExtractor={(item, index) => index.toString()}
-  numColumns={4}
-  scrollEnabled={false}
-  contentContainerStyle={{ paddingHorizontal: 10 }}
-  renderItem={({ item }) => (
-    <TouchableOpacity
-      style={styles.gridItem}
-      onPress={() =>
-        navigation.navigate("ProviderList", { service: item.route })
-      }
-    >
-      <MaterialCommunityIcons name={item.icon} size={28} color="#f10a0aff" />
-      <Text style={styles.gridItemText}>{item.label}</Text>
-    </TouchableOpacity>
-  )}
-/> */}
 
         <FlatList
           data={featuredServices}
@@ -247,7 +182,7 @@ export default function Homepage({ navigation }) {
           >
             <View style={styles.upcomingCard}>
               <View style={styles.upcomingInfo}>
-                <MaterialIcons name="brush" size={30} color="#000" />
+                <MaterialIcons name="local-car-wash" size={30} color="#000" />
                 <View style={styles.upcomingDetails}>
                   <Text style={styles.upcomingTitle}>Detailing</Text>
                   <Text style={styles.upcomingLocation}>
@@ -270,7 +205,7 @@ export default function Homepage({ navigation }) {
 
             <View style={styles.upcomingCard}>
               <View style={styles.upcomingInfo}>
-                <MaterialIcons name="brush" size={24} color="#666" />
+                <MaterialIcons name="cleaning-services" size={24} color="#666" />
                 <View style={styles.upcomingDetails}>
                   <Text style={styles.upcomingTitle}>Detailing</Text>
                   <Text style={styles.upcomingLocation}>
@@ -501,7 +436,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     fontFamily: "DM",
-    color: "#4E46B4",
+    color: "red",
   },
   servicesScroll: {
     flexDirection: "row",
@@ -595,7 +530,7 @@ gridItemText: {
     fontFamily: "DM",
   },
   upcomingTime: {
-    color: "#5D5FEF",
+    color: "red",
     fontWeight: "500",
     fontFamily: "DM",
   },
@@ -640,7 +575,7 @@ gridItemText: {
   iconleft: {
     padding: 4,
     borderRadius: 30,
-    backgroundColor: "#4E46B4",
+    backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
     elevation: 4,

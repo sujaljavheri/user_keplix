@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text,SafeAreaView, TouchableOpacity, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Footer from "../Footer/Footer";
 
@@ -9,48 +16,36 @@ const SettingsItem = ({ icon, title, navigation, targetScreen }) => (
     onPress={() => navigation.navigate(targetScreen)}
   >
     <View style={styles.settingsItemLeft}>
-      <Ionicons name={icon} size={24} color="#000" />
+      <Ionicons name={icon} size={22} color="#000" />
       <Text style={styles.settingsItemText}>{title}</Text>
     </View>
-    <Ionicons name="chevron-forward" size={24} />
-  </TouchableOpacity>
-);
-
-const NavItem = ({ icon, text, active, navigation, targetScreen }) => (
-  <TouchableOpacity
-    style={styles.navItem}
-    onPress={() => navigation.navigate(targetScreen)}
-  >
-    <Ionicons name={icon} size={34} color={active ? "#4E46B4" : "#666"} />
-    <Text style={[styles.navText, active && styles.activeNavText]}>{text}</Text>
+    <Ionicons name="chevron-forward" size={20} color="#000" />
   </TouchableOpacity>
 );
 
 export default function Profile({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-    
+      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name={"arrow-back-outline"} style={styles.icon} />
-        </TouchableOpacity>
         <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={() => navigation.navigate("SignIn")}
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
         >
-          <Text style={styles.logoutText}>Log out</Text>
-          <Ionicons name="log-out-outline" size={20} color="#4E46B4" />
+          <Ionicons name={"arrow-back"} size={24} color="#000" />
         </TouchableOpacity>
+        <Text style={styles.headerTitle}>Menu</Text>
+        <View style={{ width: 24 }} /> {/* Spacer for symmetry */}
       </View>
 
-      {/* Profile Section */}
+      {/* Profile Card */}
       <TouchableOpacity
         style={styles.profileSection}
         onPress={() => navigation.navigate("UserProfile")}
       >
         <View style={styles.profileInfo}>
           <Image
-            source={require("../../assets/images/3.jpeg")} // Replace with actual image path
+            source={require("../../assets/images/3.jpeg")}
             style={styles.profileImage}
           />
           <View>
@@ -58,13 +53,16 @@ export default function Profile({ navigation }) {
             <Text style={styles.profilePhone}>+91 9731013245</Text>
           </View>
         </View>
-        <Ionicons name="chevron-forward" style={styles.dropdownIcon} />
+        <TouchableOpacity
+          style={styles.chevronButton}
+          onPress={() => navigation.navigate("UserProfile")}
+        >
+          <Ionicons name="chevron-forward" size={20} color="#FF0000" />
+        </TouchableOpacity>
       </TouchableOpacity>
 
-      {/* Settings Items */}
-      <Text style={styles.sectionTitle}>Settings</Text>
-      <View style={styles.settingContainer}>
-        <View style={styles.settingsList}>
+      {/* Menu Items */}
+      <View style={styles.settingsList}>
         <SettingsItem
           icon="card"
           title="Payment Methods"
@@ -102,37 +100,9 @@ export default function Profile({ navigation }) {
           targetScreen="Support"
         />
       </View>
-      </View>
-      
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        {/* <NavItem 
-    icon="home" 
-    text="Home"  
-    navigation={navigation} 
-    targetScreen="Homepage" 
-  />
-  <NavItem 
-    icon="grid" 
-    text="Services" 
-    navigation={navigation} 
-    targetScreen="ServicesCard" 
-  />
-  <NavItem 
-    icon="document-text" 
-    text="Bookings" 
-    navigation={navigation} 
-    targetScreen="BookingList" 
-  />
-  <NavItem 
-    icon="person" 
-    text="Profile"
-    active 
-    navigation={navigation} 
-    targetScreen="Profile" 
-  /> */}
-      </View>
-      <Footer navigation={navigation} />
+
+      {/* Footer */}
+      {/* <Footer style ={styles.footer} navigation={navigation} /> */}
     </SafeAreaView>
   );
 }
@@ -141,45 +111,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 20,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 16,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
   },
-  icon: {
-    fontSize: 30,
-    borderColor: "#E2E2E2",
-    borderWidth: 2,
-    borderRadius: 50,
-    padding: 5,
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#000",
   },
   backButton: {
-    padding: 8,
+    padding: 5,
+    borderRadius: 50,
+    borderWidth: 1.5,
+    borderColor: "#E2E2E2",
   },
-  logoutButton: {
-    flexDirection: "row",
+  chevronButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: "#c7c4c4ff",
+    justifyContent: "center",
     alignItems: "center",
-    gap: 4,
-  },
-  logoutText: {
-    color: "#4E46B4",
-    fontSize: 16,
-  },
+    backgroundColor: "#fff",
+},
+
   profileSection: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 16,
-    width: "95%",
+    padding: 20,
+    marginHorizontal: 16,
     marginBottom: 20,
-    marginLeft: 10,
     borderWidth: 2,
-    borderColor: "#E2E2E2",
-    borderRadius: 24,
+    borderColor: "#c7c4c4ff",
+    borderRadius: 16,
+    backgroundColor: "#fff",
   },
   profileInfo: {
     flexDirection: "row",
@@ -187,67 +159,37 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   profileImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 16,
+    width: 70,
+    height: 70,
+    borderRadius: 12,
     backgroundColor: "#f0f0f0",
+    marginRight: 12,
   },
   profileName: {
-    fontSize: 20,
     fontWeight: "600",
-    color: "#333",
-    fontWeight: "500",
-    fontFamily: "DM",
+    color: "#000",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 4,
   },
   profilePhone: {
+    marginTop: 2,
     fontSize: 16,
-    color: "#0000008F",
-    marginTop: 4,
-    fontWeight: "500",
-    fontFamily: "DM",
-  },
-  dropdownIcon: {
-    width: 20,
-    height: 30,
-    fontSize: 18,
-    lineHeight: 26,
-    color: "#000",
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "rgba(0, 0, 0, 0.56)",
-    borderWidth: 1.5,
-    borderRadius: 4,
-    backgroundColor: "#fff",
-  },
-  sectionTitle: {
-    fontSize: 20,
-    color: "#0000008F",
-    paddingHorizontal: 16,
-    marginBottom: 8,
-    fontWeight: "500",
-    fontFamily: "DM",
-  },
-  settingContainer:{
-      // width: 361,
-      // height: 436.0001525878906,
-      // top: 282px,
-      // left: 16px,
-      // gap: 24px;
-      // angle: 0 deg,
-      // opacity: 1,
+    color: "red",
+    fontWeight: "bold",
   },
   settingsList: {
-    flex: 1,
+    borderTopWidth: 1,
+    borderTopColor: "#E2E2E2",
   },
   settingsItem: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 16,
+    paddingVertical: 25,
+    paddingHorizontal: 20,
     borderBottomWidth: 2,
-    borderBottomColor: "#E2E2E2",
-    width: "95%",
-    marginLeft: 10,
+    borderBottomColor: "#c8b9b9ff",
   },
   settingsItemLeft: {
     flexDirection: "row",
@@ -256,25 +198,16 @@ const styles = StyleSheet.create({
   },
   settingsItemText: {
     fontSize: 16,
-    color: "#333",
+    color: "#000",
+    fontWeight: "bold",
   },
-  bottomNav: {
+  // Profile container
+  profileContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 15,
-    backgroundColor: "white",
-    borderTopWidth: 1,
-    borderTopColor: "#eee",
-  },
-  navItem: {
     alignItems: "center",
-  },
-  navText: {
-    color: "#666",
-    fontSize: 12,
-    marginTop: 5,
-  },
-  activeNavText: {
-    color: "#4E46B4",
+    padding: 16, // bigger padding
+    borderRadius: 12,
+    backgroundColor: "#fff",
+    elevation: 3,
   },
 });

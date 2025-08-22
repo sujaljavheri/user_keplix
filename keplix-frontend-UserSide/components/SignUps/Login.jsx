@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity style={styles.skipbutton} onPress={() => navigation.navigate("Homepage")}>
+      <TouchableOpacity style={styles.skipbutton} onPress={() => navigation.navigate("Personalize")}>
         <Text style={styles.skiptext}>
           skip
         </Text>
@@ -254,6 +254,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     fontFamily: "DM",
+    width: "100%",
+    textAlign: "center",
   },
   dividerContainer: {
     flexDirection: "row",

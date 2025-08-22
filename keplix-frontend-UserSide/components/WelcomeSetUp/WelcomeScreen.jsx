@@ -47,8 +47,8 @@ export default function WelcomeScreen({ navigation }) {
       </View>
 
       <View style={styles.textContainer}>
-        <Text style={[styles.welcomeText ,{fontSize : 40}] }>Welcome !</Text>
-        <Text style={styles.welcomeText}>Keplix to</Text>
+        <Text style={[styles.welcomeText1, { fontSize: 40 }]}>Welcome !</Text>
+        <Text style={styles.welcomeText}>To Keplix</Text>
       </View>
       <View style={styles.buttonContainer}>
         {currentIndex < 2 ? (
@@ -57,13 +57,24 @@ export default function WelcomeScreen({ navigation }) {
             <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
               <Text style={styles.nextButtonText}>Next</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate("WelcomeScreen2")}>
+            <TouchableOpacity
+              style={styles.skipButton}
+              onPress={() => navigation.navigate("WelcomeScreen2")}
+            >
               <Text style={styles.skipButtonText}>Skip</Text>
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity style={styles.finishButton} onPress={() => navigation.navigate("WelcomeScreen2")}>
-            <Text style={[styles.finishButtonText , {height: 30}]}>Finish</Text>
+          <TouchableOpacity
+            style={styles.finishButton}
+            // onPress={() => navigation.navigate("WelcomeScreen2")
+            onPress={() => navigation.navigate("Personalize")
+
+            }
+          >
+            <Text style={[styles.finishButtonText, { height: 30 }]}>
+              Next
+            </Text>
           </TouchableOpacity>
         )}
       </View>
@@ -73,18 +84,17 @@ export default function WelcomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    
     flex: 1,
     padding: 20,
-    backgroundColor:'black',
+    backgroundColor: "white",
   },
   backContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   icon: {
-    color: 'white',
+    color: "black",
     fontSize: 30,
     borderColor: "#E2E2E2",
     borderWidth: 2,
@@ -97,8 +107,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imagePlaceholder: {
-    width: "80%",
-    height: "50%",
+    width: "70%",
+    height: "60%",
     backgroundColor: "#E2E2E2",
     justifyContent: "center",
     alignItems: "center",
@@ -109,6 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 20,
     alignItems: "center",
+    marginBottom: 20,
   },
   dot: {
     width: 8,
@@ -123,17 +134,26 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
   },
   textContainer: {
-    color: 'white',
+    color: "black",
     alignSelf: "flex-start",
     marginLeft: 10,
-    marginBottom: 40,
+    marginBottom: 20,
+  },
+  welcomeText1: {
+  fontFamily: "Poppins",  
+  fontWeight: "600",      // SemiBold weight
+  fontSize: 35,
+  lineHeight: 35,         // 100% of font size
+  letterSpacing: 0,
+  style: "semi-bold",
+  
   },
   welcomeText: {
-    color:'white',
+    color: "black",
     fontFamily: "DM",
     fontSize: 32,
     fontWeight: "500",
-    
+    marginBottom:20,
   },
 
   buttonContainer: {
@@ -142,30 +162,36 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: "center",
     gap: 15,
+    marginBottom:80,
   },
+  
   nextButton: {
     flex: 1,
     backgroundColor: "white",
-    color: "white",
-    borderColor: "#E2E2E2",
-    borderRadius: 25,
+    borderColor: "#8E8E8E", 
+    borderWidth: 2,
+    borderRadius: 20,
     paddingVertical: 12,
     alignItems: "center",
-  
   },
+  
+
   skipButton: {
     flex: 1,
     backgroundColor: "red",
-    borderRadius: 25,
+    borderRadius: 20,
     paddingVertical: 12,
     alignItems: "center",
   },
   finishButton: {
-    backgroundColor: "red",
-    borderRadius: 25,
+    backgroundColor: "white",
+    borderColor: "#8E8E8E", 
+    borderRadius: 20,
+    borderWidth: 2,
     paddingVertical: 12,
     alignItems: "center",
   },
+  
   nextButtonText: {
     color: "#000",
     fontWeight: "500",
@@ -177,9 +203,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontFamily: "DM",
     fontSize: 20,
+    
   },
   finishButtonText: {
-    color: "#fff",
+    color: "black",
     fontWeight: "500",
     fontFamily: "DM",
     fontSize: 20,

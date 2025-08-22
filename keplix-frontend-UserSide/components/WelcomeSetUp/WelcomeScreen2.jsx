@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imagePlaceholder: {
-    width: "80%",
+    width: "60%",
     height: "60%",
     backgroundColor: "#E2E2E2",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   textContainer: {
     marginBottom: 30,

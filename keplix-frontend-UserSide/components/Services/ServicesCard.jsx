@@ -16,27 +16,76 @@ import {
 } from "@expo/vector-icons";
 import Footer from "../Footer/Footer";
 // 🔻 CategoryToggle pill component
-const CategoryToggle = ({ iconName, title, description, isExpanded, onPress }) => (
+// const CategoryToggle = ({ iconName, title, description, isExpanded, onPress }) => (
+//   <View style={styles.categorycontainer}>
+//     <View style={styles.leftSection}>
+//       <Ionicons name={iconName} style={styles.iconStyle} size={30} color="black" />
+//       <View style={styles.textContainer}>
+//         <Text style={styles.categoryTitle}>{title}</Text>
+//         <Text style={styles.categoryDescription}>{description}</Text>
+//       </View>
+//     </View>
+//     <TouchableOpacity onPress={onPress}>
+//       <View style={[styles.button , {borderColor : isExpanded ? "red" : "#666"}]}>
+//         <Ionicons
+//           name={isExpanded ? "chevron-up" : "chevron-down"}
+//           size={25}
+//           color="white"
+//           style={[styles.dropdownIcon ]}
+//         />
+//       </View>
+//     </TouchableOpacity>
+//   </View>
+// );
+const CategoryToggle = ({
+  iconName,
+  title,
+  description,
+  isExpanded,
+  onPress,
+  items,
+  navigation,
+}) => (
   <View style={styles.categorycontainer}>
-    <View style={styles.leftSection}>
-      <Ionicons name={iconName} style={styles.iconStyle} size={30} color="black" />
-      <View style={styles.textContainer}>
-        <Text style={styles.categoryTitle}>{title}</Text>
-        <Text style={styles.categoryDescription}>{description}</Text>
+    {/* Header Row */}
+    <View style={styles.headerRow}>
+      <View style={styles.leftSection}>
+        <Ionicons name={iconName} style={styles.iconStyle} size={30} color="black" />
+        <View style={styles.textContainer}>
+          <Text style={styles.categoryTitle}>{title}</Text>
+          <Text style={styles.categoryDescription}>{description}</Text>
+        </View>
       </View>
+      <TouchableOpacity onPress={onPress}>
+        <View style={[styles.button, { borderColor: isExpanded ? "red" : "#666" }]}>
+          <Ionicons
+            name={isExpanded ? "chevron-up" : "chevron-down"}
+            size={25}
+            color="black"
+            style={styles.dropdownIcon}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
-    <TouchableOpacity onPress={onPress}>
-      <View style={[styles.button , {borderColor : isExpanded ? "red" : "#666"}]}>
-        <Ionicons
-          name={isExpanded ? "chevron-up" : "chevron-down"}
-          size={25}
-          color="white"
-          style={[styles.dropdownIcon ]}
-        />
+
+    {/* Expanded Items (now inside same container) */}
+    {isExpanded && (
+      <View style={styles.gridContainer}>
+        {items.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.gridItem}
+            onPress={() => navigation.navigate("ProviderList")}
+          >
+            {item.icon}
+            <Text style={styles.gridText}>{item.text}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
-    </TouchableOpacity>
+    )}
   </View>
 );
+
 
 // 🔻 Category Grid Section
 const CategorySection = ({ title, items, navigation }) => (
@@ -44,18 +93,16 @@ const CategorySection = ({ title, items, navigation }) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.categoryTitle}>{title}</Text>
     </View>
-    <View style={styles.gridContainer}>
-      {items.map((item, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.gridItem}
-          onPress={() => navigation.navigate("ProviderList")}
-        >
-          {item.icon}
-          <Text style={styles.gridText}>{item.text}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
+    {isExpanded && (
+      <View style={styles.itemsContainer}>
+        {items.map((item, index) => (
+          <TouchableOpacity key={index} style={styles.itemCard}>
+            <Ionicons name={item.icon} size={24} color="#000" />
+            <Text style={styles.itemText}>{item.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    )}
   </View>
 );
 
@@ -134,7 +181,7 @@ export default function ServicesCard({ navigation }) {
       </View>
 
       <ScrollView>
-        <CategoryToggle
+        {/* <CategoryToggle
         style={styles.categorycontainer}
           iconName="brush"
           title="Cleaning"
@@ -184,7 +231,46 @@ export default function ServicesCard({ navigation }) {
             items={inspectionItems}
             navigation={navigation}
           />
-        )}
+        )} */}
+        <CategoryToggle
+          iconName="brush"
+          title="Cleaning"
+          description="Interior & exterior cleaning services"
+          isExpanded={expandedSection === "Cleaning"}
+          onPress={() =>
+            setExpandedSection(
+              expandedSection === "Cleaning" ? null : "Cleaning"
+            )
+          }
+          items={cleaningItems}
+          navigation={navigation}
+        />
+
+        <CategoryToggle
+          iconName="construct"
+          title="Repairs"
+          description="Fix your car with professional help"
+          isExpanded={expandedSection === "Repairs"}
+          onPress={() =>
+            setExpandedSection(expandedSection === "Repairs" ? null : "Repairs")
+          }
+          items={repairItems}
+          navigation={navigation}
+        />
+
+        <CategoryToggle
+          iconName="search"
+          title="Inspection"
+          description="Routine checks and diagnostics with experts"
+          isExpanded={expandedSection === "Inspection"}
+          onPress={() =>
+            setExpandedSection(
+              expandedSection === "Inspection" ? null : "Inspection"
+            )
+          }
+          items={inspectionItems}
+          navigation={navigation}
+        />
       </ScrollView>
 
       {/* <View style={styles.bottomNav}>
@@ -215,7 +301,6 @@ export default function ServicesCard({ navigation }) {
         />
       </View> */}
       <Footer navigation={navigation} />
-      
     </SafeAreaView>
   );
 }
@@ -226,6 +311,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     padding: 20,
+  },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   header: {
     flexDirection: "row",
@@ -260,7 +350,7 @@ const styles = StyleSheet.create({
   },
   categorycontainer: {
     width: "100%",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
@@ -271,6 +361,19 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 10,
   },
+//   categorycontainer: {
+//   width: "100%",
+//   flexDirection: "column", // ✅ was "row"
+//   justifyContent: "flex-start",
+//   alignItems: "flex-start",
+//   marginBottom: 10,
+//   backgroundColor: "white",
+//   borderRadius: 20,
+//   borderWidth: 2,
+//   borderColor: "#c9b9b9ff",
+//   paddingVertical: 15,
+//   paddingHorizontal: 10,
+// },
   leftSection: {
     flexDirection: "row",
     alignItems: "center",
@@ -321,19 +424,21 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+  flexWrap: "wrap",
+  justifyContent: "space-between",
+  marginTop: 15, // ✅ small spacing under header
   },
   gridItem: {
     flexDirection: "column",
     width: "30%",
     // backgroundColor: "#c8eaff",
-    backgroundColor:"#e3eaeeff",
+    backgroundColor: "#e3eaeeff",
     borderColor: "#666",
     padding: 15,
     borderRadius: 16,
     alignItems: "center",
     marginBottom: 15,
+    margin: 5,
   },
   gridText: {
     marginTop: 8,
@@ -365,5 +470,27 @@ const styles = StyleSheet.create({
   },
   activeNavText: {
     color: "#4E46B4",
+  },
+  itemsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
+
+  itemCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    padding: 10,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+
+  itemText: {
+    marginLeft: 8,
+    fontSize: 14,
+    fontWeight: "500",
   },
 });
