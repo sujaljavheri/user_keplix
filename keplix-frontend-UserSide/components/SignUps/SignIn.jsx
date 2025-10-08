@@ -48,7 +48,6 @@ export default function SignIn({ navigation }) {
       </View>
 
       <Text style={styles.title}>Sign In</Text>
-      <Text style={styles.subtitle}>Log in using your credentials</Text>
 
       <View>
         <Text style={[styles.enter, { marginTop: 40 }]}>
@@ -100,7 +99,7 @@ export default function SignIn({ navigation }) {
       <TouchableOpacity
         style={[
           styles.button,
-          isFormFilled && { backgroundColor: "red" },
+          isFormFilled && { backgroundColor: "#D91F26" },
           isVerified && { backgroundColor: "#28A745" },
         ]}
         onPress={() => {
@@ -129,14 +128,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   backcontainer: {
+    marginTop:20,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 40,
   },
   icon: {
     fontSize: 30,
-    color: "black",
-    borderColor: "black",
+    color: "#494747ff",
+    borderColor: "#aba3a3",
     borderWidth: 2,
     borderRadius: 50,
   },
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonText: {
-    color: "b",
+    color: "white",
     fontSize: 16,
     fontWeight: "500",
     fontFamily: "DM",
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     fontFamily: "DM",
   },
   link: {
-    color: "red",
+    color: "#D91F26",
     fontWeight: "500",
     fontFamily: "DM",
   },

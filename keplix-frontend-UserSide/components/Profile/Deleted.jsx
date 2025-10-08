@@ -5,7 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 export default function CancelBookingSuccess({ navigation }) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate("BookingList"); // Navigate after 3 seconds
+      navigation.navigate("Homepage"); // Navigate after 3 seconds
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -23,7 +23,7 @@ export default function CancelBookingSuccess({ navigation }) {
 
       {/* Success message */}
       <Text style={styles.text}>
-        Your booking has been cancelled successfully.
+        Your Account is deleted Successfully
       </Text>
     </View>
   );
@@ -35,11 +35,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
-    
   },
   imageContainer: {
     width: 260,
-    height: 200,
+    height: 260,
     borderRadius: 12,
     backgroundColor: "#E0E0E0", // Grey placeholder
     justifyContent: "center",
@@ -65,6 +64,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 40,
     paddingHorizontal: 20,
-    marginBottom:200,
   },
 });

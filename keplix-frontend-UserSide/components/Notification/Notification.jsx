@@ -63,7 +63,7 @@ export default function Notification({ navigation }) {
             <Text style={styles.settingDescription}>Set up custom alerts for bookings</Text>
           </View>
           <Switch
-            trackColor={{ false: '#e0e0e0', true: '#4E46B4' }}
+            trackColor={{ false: '#e0e0e0', true: 'red' }}
             thumbColor={customAlertsEnabled ? '#ffffff' : '#ffffff'}
             ios_backgroundColor="#e0e0e0"
             onValueChange={toggleCustomAlerts}
@@ -140,7 +140,7 @@ export default function Notification({ navigation }) {
             )}
           </View>
           <Switch
-            trackColor={{ false: '#e0e0e0', true: '#4E46B4' }}
+            trackColor={{ false: '#e0e0e0', true: 'red' }}
             thumbColor={emailAlertsEnabled ? '#ffffff' : '#ffffff'}
             ios_backgroundColor="#e0e0e0"
             onValueChange={toggleEmailAlerts}
@@ -161,7 +161,7 @@ export default function Notification({ navigation }) {
             )}
           </View>
           <Switch
-            trackColor={{ false: '#e0e0e0', true: '#4E46B4' }}
+            trackColor={{ false: '#e0e0e0', true: 'red' }}
             thumbColor={smsAlertsEnabled ? '#ffffff' : '#ffffff'}
             ios_backgroundColor="#e0e0e0"
             onValueChange={toggleSmsAlerts}
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     fontFamily: "DM",
-    color: '#4E46B4',
+    color: 'red',
     marginTop: 4,
   },
   switch: {
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   saveButtonEnabled: {
-    backgroundColor: '#4E46B4',
+    backgroundColor: 'red',
   },
   saveButtonDisabled: {
     backgroundColor: '#0000008F',

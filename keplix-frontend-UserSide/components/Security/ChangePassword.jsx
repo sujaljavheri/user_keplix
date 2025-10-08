@@ -51,7 +51,7 @@ export default function ChangePassword({navigation}) {
           }
         }}
       >
-        <Text style={[styles.buttonText, isValidPassword && styles.activeButtonText]}>Continue</Text>
+        <Text style={[styles.buttonText, isValidPassword && styles.activeButtonText]}>Next</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
@@ -65,11 +65,13 @@ export default function ChangePassword({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
   },
   backcontainer:{
+    marginTop:30,
     flexDirection: 'row', 
     alignItems: 'center', 
     marginBottom: 40,
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   button: {
+    marginTop:40,
     backgroundColor: '#0000008F',
     borderRadius: 70,
     paddingVertical: 15,
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   activeButton: {
-    backgroundColor: '#4E46B4',
+    backgroundColor: 'red',
   },
   buttonText: {
     color: '#fff',

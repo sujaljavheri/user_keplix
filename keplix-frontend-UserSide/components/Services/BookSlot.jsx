@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// BookSlot.jsx
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,110 +7,118 @@ import {
   StyleSheet,
   SafeAreaView,
   StatusBar,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+  ActivityIndicator,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function BookSlot({ navigation }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [currentDate, setCurrentDate] = useState(new Date(2024, 2)); 
+  const [currentDate, setCurrentDate] = useState(new Date());
 
-  const formatMonthYear = (date) => {
-    return date.toLocaleString('default', { month: 'long', year: 'numeric' });
-  };
+  const [availableDates, setAvailableDates] = useState([]);
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBookingData = async () => {
+      setLoading(true);
+      try {
+        // Dummy data for now
+        setAvailableDates([5, 9, 10, 11, 25, 26]);
+        setTimeSlots([
+          "10:30AM",
+          "11:30AM",
+          "2:00PM",
+          "3:30PM",
+          "4:30PM",
+          "6:00PM",
+        ]);
+      } catch (e) {
+        console.error("availability error", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBookingData();
+  }, [currentDate]);
+
+  const formatMonthYear = (date) =>
+    date.toLocaleString("default", { month: "long", year: "numeric" });
 
   const handlePreviousMonth = () => {
-    setCurrentDate(prevDate => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(prevDate.getMonth() - 1);
-      return newDate;
+    setCurrentDate((prev) => {
+      const next = new Date(prev);
+      next.setMonth(prev.getMonth() - 1);
+      return next;
     });
-    setSelectedDate(null); 
-  };
-
-  const handleProceed = () => {
-    if (selectedDate && selectedTime) {
-      navigation.navigate('ReviewPage', {
-        date: `${selectedDate} June 2025`,
-        time: selectedTime
-      });
-    }
+    setSelectedDate(null);
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(prevDate => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(prevDate.getMonth() + 1);
-      return newDate;
+    setCurrentDate((prev) => {
+      const next = new Date(prev);
+      next.setMonth(prev.getMonth() + 1);
+      return next;
     });
-    setSelectedDate(null); 
+    setSelectedDate(null);
   };
 
   const getCalendarDates = () => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
+    const y = currentDate.getFullYear();
+    const m = currentDate.getMonth();
+    const first = new Date(y, m, 1);
+    const last = new Date(y, m + 1, 0);
+    const days = last.getDate();
 
-    const dates = [];
-    let currentWeek = [];
+    const rows = [];
+    let week = [];
 
-    // Add empty cells for days before the first of the month
-    for (let i = 0; i < firstDay.getDay(); i++) {
-      currentWeek.push(null);
-    }
+    for (let i = 0; i < first.getDay(); i++) week.push(null);
 
-    // Add the days of the month
-    for (let day = 1; day <= daysInMonth; day++) {
-      currentWeek.push(day);
-      
-      if (currentWeek.length === 7) {
-        dates.push(currentWeek);
-        currentWeek = [];
+    for (let d = 1; d <= days; d++) {
+      week.push(d);
+      if (week.length === 7) {
+        rows.push(week);
+        week = [];
       }
     }
-
-    // Add empty cells for remaining days
-    if (currentWeek.length > 0) {
-      while (currentWeek.length < 7) {
-        currentWeek.push(null);
-      }
-      dates.push(currentWeek);
+    if (week.length > 0) {
+      while (week.length < 7) week.push(null);
+      rows.push(week);
     }
-
-    return dates;
+    return rows;
   };
 
-  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  
-  // Available time slots
-  const timeSlots = [
-    '10:30AM',
-    '11:30AM',
-    '2:00PM',
-    '3:30PM',
-    '4:30PM',
-    '6:00PM'
-  ];
+  const isDateAvailable = (d) => !!d && availableDates.includes(d);
 
-  // Function to check if date is available (customize as needed)
-  const isDateAvailable = (date) => {
-    const availableDates = [5, 9, 10, 11, 25, 26];
-    return availableDates.includes(date);
+  const handleProceed = async () => {
+    if (!selectedDate || !selectedTime) return;
+
+    const booking = {
+      providerId: "prov_123",
+      serviceId: "svc_engine_repair",
+      dateLabel: `${selectedDate} ${formatMonthYear(currentDate)}`,
+      dateISO: new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        selectedDate
+      ).toISOString(),
+      time: selectedTime,
+    };
+    // 👇 Navigate back to ServiceDetails with param
+  // navigation.navigate("ServiceDetails", { bookingAdded: booking });
+
+    navigation.navigate("MoreService", { addedBooking: booking });
   };
 
-  // Handle date selection
-  const handleDateSelect = (date) => {
-    if (date && isDateAvailable(date)) {
-      setSelectedDate(date);
-    }
+  // 🔹 Clear All handler
+  const handleClearAll = () => {
+    setSelectedDate(null);
+    setSelectedTime(null);
   };
 
-  // Handle time selection
-  const handleTimeSelect = (time) => {
-    setSelectedTime(time);
-  };
+  const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -118,247 +127,190 @@ export default function BookSlot({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" style={styles.icon} />
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleClearAll}>
+          <Text style={styles.clearText}>Clear all</Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.calendarContainer}>
-        <View style={styles.monthSelector}>
-          <TouchableOpacity onPress={handlePreviousMonth}>
-            <Ionicons name="chevron-back" style={styles.dropdownIcon} />
-          </TouchableOpacity>
-          <Text style={styles.monthText}>{formatMonthYear(currentDate)}</Text>
-          <TouchableOpacity onPress={handleNextMonth}>
-            <Ionicons name="chevron-forward" style={styles.dropdownIcon} />
-          </TouchableOpacity>
-        </View>
+      {loading ? (
+        <ActivityIndicator size="large" color="red" style={{ flex: 1 }} />
+      ) : (
+        <>
+          <View style={styles.calendarContainer}>
+            <View style={styles.monthSelector}>
+              <TouchableOpacity onPress={handlePreviousMonth}>
+                <Ionicons name="chevron-back" style={styles.dropdownIcon} />
+              </TouchableOpacity>
+              <Text style={styles.monthText}>{formatMonthYear(currentDate)}</Text>
+              <TouchableOpacity onPress={handleNextMonth}>
+                <Ionicons name="chevron-forward" style={styles.dropdownIcon} />
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.daysRow}>
-          {daysOfWeek.map((day, index) => (
-            <Text key={index} style={styles.dayLabel}>
-              {day}
-            </Text>
-          ))}
-        </View>
+            <View style={styles.daysRow}>
+              {daysOfWeek.map((d) => (
+                <Text key={d} style={styles.dayLabel}>
+                  {d}
+                </Text>
+              ))}
+            </View>
 
-        <View style={styles.calendarGrid}>
-          {getCalendarDates().map((week, weekIndex) => (
-            <View key={weekIndex} style={styles.weekRow}>
-              {week.map((date, dateIndex) => (
+            <View style={styles.calendarGrid}>
+              {getCalendarDates().map((week, wi) => (
+                <View key={wi} style={styles.weekRow}>
+                  {week.map((d, di) => (
+                    <TouchableOpacity
+                      key={di}
+                      disabled={!d}
+                      onPress={() => isDateAvailable(d) && setSelectedDate(d)}
+                      style={[
+                        styles.dateCell,
+                        d && isDateAvailable(d) && styles.availableDate,
+                        d && selectedDate === d && styles.selectedDate,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          d && styles.dateText,
+                          d && isDateAvailable(d) && styles.availableDateText,
+                          d && selectedDate === d && styles.selectedDateText,
+                        ]}
+                      >
+                        {d || ""}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              ))}
+            </View>
+          </View>
+
+          <View style={styles.timeSlotsContainer}>
+            <Text style={styles.sectionTitle}>Available Time Slots:</Text>
+            <View style={styles.timeGrid}>
+              {timeSlots.map((t) => (
                 <TouchableOpacity
-                  key={dateIndex}
-                  onPress={() => handleDateSelect(date)}
+                  key={t}
+                  onPress={() => setSelectedTime(t)}
                   style={[
-                    styles.dateCell,
-                    date && isDateAvailable(date) && styles.availableDate,
-                    date && selectedDate === date && styles.selectedDate,
+                    styles.timeSlot,
+                    selectedTime === t && styles.selectedTimeSlot,
                   ]}
-                  disabled={!date}
                 >
                   <Text
                     style={[
-                      date && styles.dateText,
-                      date && isDateAvailable(date) && styles.availableDateText,
-                      date && selectedDate === date && styles.selectedDateText,
+                      styles.timeText,
+                      selectedTime === t && styles.selectedTimeText,
                     ]}
                   >
-                    {date || ''}
+                    {t}
                   </Text>
                 </TouchableOpacity>
               ))}
             </View>
-          ))}
-        </View>
-      </View>
+          </View>
 
-      <View style={styles.timeSlotsContainer}>
-        <Text style={styles.sectionTitle}>Available Time Slots:</Text>
-        <View style={styles.timeGrid}>
-          {timeSlots.map((time, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.timeSlot,
-                selectedTime === time && styles.selectedTimeSlot,
-              ]}
-              onPress={() => handleTimeSelect(time)}
-            >
-              <Text
-                style={[
-                  styles.timeText,
-                  selectedTime === time && styles.selectedTimeText,
-                ]}
-              >
-                {time}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
-
-      <TouchableOpacity
-        style={[
-          styles.bookButton,
-          selectedDate && selectedTime && styles.bookButtonActive,
-        ]}
-        disabled={!selectedDate || !selectedTime}
-        onPress={handleProceed}
-      >
-        <Text style={styles.bookButtonText}>Book Slot</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            disabled={!selectedDate || !selectedTime}
+            onPress={handleProceed}
+            style={[
+              styles.bookButton,
+              selectedDate && selectedTime && styles.bookButtonActive,
+            ]}
+          >
+            <Text style={styles.bookButtonText}>Add to Cart</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
+  container: { flex: 1, backgroundColor: "#fff", padding: 20 },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-    gap: '75%',
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 30, // 🔹 Push content down a bit
+    justifyContent: "space-between",
   },
+  clearText: { color: "red", fontSize: 14, fontWeight: "500" },
   icon: {
     fontSize: 30,
-    borderColor: '#E2E2E2',
+    borderColor: "#E2E2E2",
     borderWidth: 2,
     borderRadius: 50,
     padding: 5,
   },
-  backButton: {
-    padding: 8,
-  },
   calendarContainer: {
     padding: 16,
-    borderColor: '#E2E2E2',
+    borderColor: "#E2E2E2",
     borderWidth: 2,
     borderRadius: 24,
+    marginTop: 20, // 🔹 Push calendar down
   },
   monthSelector: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
-  monthText: {
-    fontSize: 20,
-    fontWeight: '500',
-    fontFamily: 'DM',
-  },
+  monthText: { fontSize: 20, fontWeight: "500" },
   daysRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginBottom: 8,
+    marginLeft: -5,
   },
   dayLabel: {
     fontSize: 12,
-    color: '#666',
-    fontWeight: '500',
-    fontFamily: 'DM',
+    color: "#666",
+    fontWeight: "500",
     width: 40,
-    textAlign: 'center',
+    textAlign: "center",
   },
-  calendarGrid: {
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  weekRow: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  dateCell: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 2,
-  },
-  dateText: {
-    fontSize: 16,
-    color: '#000',
-    fontWeight: '500',
-    fontFamily: 'DM',
-  },
-  availableDateText: {
-    color: '#40A69F',
-  },
-  selectedDate: {
-    backgroundColor: '#4E46B4',
-    borderRadius: 20,
-  },
-  selectedDateText: {
-    color: '#fff',
-  },
-  timeSlotsContainer: {
-    padding: 16,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    color: '#0000008F',
-    fontWeight: '500',
-    fontFamily: 'DM',
-    marginBottom: 16,
-  },
-  timeGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
+  calendarGrid: { borderRadius: 12, overflow: "hidden" },
+  weekRow: { flexDirection: "row", justifyContent: "flex-start", gap: 4, marginLeft: 5 },
+  dateCell: { width: 40, height: 40, justifyContent: "center", alignItems: "center", margin: 2 },
+  dateText: { fontSize: 16, color: "#000", fontWeight: "300" },
+  availableDateText: { color: "black" , fontWeight: "700"  },
+  selectedDate: { backgroundColor: "red", borderRadius: 20 },
+  selectedDateText: { color: "#fff" },
+  timeSlotsContainer: { padding: 16, marginTop: 10 },
+  sectionTitle: { fontSize: 16, color: "#0000008F", fontWeight: "500", marginBottom: 16 },
+  timeGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   timeSlot: {
-    marginBottom:10,
+    marginBottom: 10,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    backgroundColor: '#fff',
+    borderColor: "#e0e0e0",
+    backgroundColor: "#fff",
   },
-  selectedTimeSlot: {
-    backgroundColor: '#4E46B4',
-    borderColor: '#E2E2E2',
-  },
-  timeText: {
-    fontSize: 14,
-    color: '#000',
-    fontWeight: '500',
-    fontFamily: 'DM',
-  },
-  selectedTimeText: {
-    color: '#fff',
-    fontWeight: '500',
-    fontFamily: 'DM',
-  },
+  selectedTimeSlot: { backgroundColor: "red", borderColor: "#E2E2E2" },
+  timeText: { fontSize: 14, color: "#000", fontWeight: "500" },
+  selectedTimeText: { color: "#fff", fontWeight: "500" },
   bookButton: {
-    marginTop:100,
+    marginTop: 80, // 🔹 Bring button lower
     margin: 16,
     padding: 16,
     borderRadius: 70,
-    backgroundColor: '#e0e0e0',
-    alignItems: 'center',
+    backgroundColor: "#e0e0e0",
+    alignItems: "center",
   },
-  bookButtonActive: {
-    backgroundColor: '#4E46B4',
-  },
-  bookButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '500',
-    fontFamily: 'DM',
-  },
+  bookButtonActive: { backgroundColor: "red" },
+  bookButtonText: { color: "#fff", fontSize: 16, fontWeight: "500" },
   dropdownIcon: {
-    width:20,
+    width: 20,
     height: 30,
     fontSize: 18,
-    lineHeight:26,
-    color: "#4E46B4",
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "#4E46B4",
+    lineHeight: 26,
+    color: "red",
+    borderColor: "red",
     borderWidth: 1.5,
     borderRadius: 4,
     backgroundColor: "#fff",
   },
 });
-

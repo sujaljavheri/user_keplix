@@ -68,7 +68,7 @@ export default function WelcomeScreen({ navigation }) {
           <TouchableOpacity
             style={styles.finishButton}
             // onPress={() => navigation.navigate("WelcomeScreen2")
-            onPress={() => navigation.navigate("Personalize")
+            onPress={() => navigation.navigate("Homepage")
 
             }
           >
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   
   nextButton: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#D91F26",
     borderColor: "#8E8E8E", 
     borderWidth: 2,
     borderRadius: 20,
@@ -178,35 +178,38 @@ const styles = StyleSheet.create({
 
   skipButton: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "white",
+    borderColor: "#8E8E8E",
     borderRadius: 20,
+    borderWidth: 1,
     paddingVertical: 12,
     alignItems: "center",
   },
   finishButton: {
-    backgroundColor: "white",
+    backgroundColor: "#D91F26",
     borderColor: "#8E8E8E", 
     borderRadius: 20,
     borderWidth: 2,
     paddingVertical: 12,
     alignItems: "center",
+    
   },
   
   nextButtonText: {
-    color: "#000",
+    color: "white",
     fontWeight: "500",
     fontFamily: "DM",
     fontSize: 20,
   },
   skipButtonText: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "500",
     fontFamily: "DM",
     fontSize: 20,
     
   },
   finishButtonText: {
-    color: "black",
+    color: "white",
     fontWeight: "500",
     fontFamily: "DM",
     fontSize: 20,

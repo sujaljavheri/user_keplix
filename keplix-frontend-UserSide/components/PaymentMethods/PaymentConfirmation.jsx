@@ -94,12 +94,12 @@ const styles = StyleSheet.create({
   },
   checkIcon: {
     fontSize: 60,
-    color: '#40A69F',
+    color: '#D10000',
     marginBottom: 10,
   },
   statusText: {
     fontSize: 18,
-    color: '#4E46B4',
+    color: '#D10000',
     fontFamily: 'DM',
     fontWeight: '500',
     marginBottom: 5,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   button: {
-    backgroundColor: '#4E46B4',
+    backgroundColor: '#D10000',
     paddingVertical: 15,
     marginHorizontal: 20,
     borderRadius: 30,

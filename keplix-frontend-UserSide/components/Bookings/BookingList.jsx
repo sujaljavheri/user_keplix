@@ -52,11 +52,11 @@ export default function BookingList ({ navigation }) {
         </View>
       </View>
       <View style={styles.cardActions}>
-        <TouchableOpacity style={styles.viewButton} onPress={() => navigation.navigate('BookingDetails')}>
-          <Text style={styles.viewButtonText}>View Details</Text>
+        <TouchableOpacity style={styles.viewButton} onPress={() => navigation.navigate('CustomerSupport')}>
+          <Text style={styles.viewButtonText}>Need Help ?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditBooking')}>
-          <Text style={styles.editButtonText}>Edit Booking</Text>
+        <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('BookingDetails')}>
+          <Text style={styles.editButtonText}>View Details</Text>
           <Ionicons name="pencil" size={16} color="white" />
         </TouchableOpacity>
       </View>
@@ -83,34 +83,43 @@ export default function BookingList ({ navigation }) {
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons name={"arrow-back-outline"} style={styles.icon} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=> navigation.navigate("HamburgerMenu")}>
-              <Ionicons name="menu-outline" style={styles.icon} />
-              </TouchableOpacity>
             </View>
 
       {/* Tabs */}
       <View style={styles.tabs}>
         <TouchableOpacity 
-          style={[styles.tab, activeTab === 'past' && styles.activeTab]}
-          onPress={() => setActiveTab('past')}
+          style={[styles.tab, activeTab === 'Upcoming' && styles.activeTab]}
+          onPress={() => setActiveTab('Upcoming')}
         >
-          <Text style={[styles.tabText, activeTab === 'past' && styles.activeTabText]}>
-            Past bookings
+          <Text style={[styles.tabText, activeTab === 'Upcoming' && styles.activeTabText]}>
+           Upcoming
           </Text>
         </TouchableOpacity>
         <TouchableOpacity 
-          style={[styles.tab, activeTab === 'upcoming' && styles.activeTab]}
-          onPress={() => setActiveTab('upcoming')}
+          style={[styles.tab, activeTab === 'Completed' && styles.activeTab]}
+          onPress={() => setActiveTab('Completed')}
         >
-          <Text style={[styles.tabText, activeTab === 'upcoming' && styles.activeTabText]}>
-            Upcoming
+          <Text style={[styles.tabText, activeTab === 'Completed' && styles.activeTabText]}>
+            Completed
+          </Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.tab, activeTab === 'Rsearched' && styles.activeTab]}
+          onPress={() => setActiveTab('Rsearched')}
+        >
+          <Text style={[styles.tabText, activeTab === 'Rsearched' && styles.activeTabText]}>
+            Rsearched
           </Text>
         </TouchableOpacity>
       </View>
 
       {/* Date and Filters */}
       <View style={styles.filterSection}>
-        <Text style={styles.dateLabel}>20 Sept, Today</Text>
+        <Text style={styles.dateLabel}>
+          <Text style={{  fontWeight: "bold", fontSize: 16 }}>
+            20 sept
+            </Text>, Today</Text>
         <View style={styles.filterButtons}>
           <TouchableOpacity style={styles.filterButton}>
             <Ionicons name="search" size={20} color="black" style={styles.icon1}/>
@@ -189,7 +198,7 @@ const styles = StyleSheet.create({
   tabs: {
     flexDirection: 'row',
     paddingHorizontal: 20,
-    gap:80,
+    gap:40,
     marginBottom: 20,
   },
   tab: {

@@ -1,10 +1,11 @@
-import React, { useState } from "react"; 
+import React from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -16,158 +17,203 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 export default function Payment1({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name={"arrow-back-outline"} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.title}>Payment</Text>
-      <Text style={styles.subtitle}> Select payment method</Text>
-
-      <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
-          <Fontisto name="credit-card" size={20} color="#000" style={styles.menuIcon} />
-          <View style={styles.menuTextContainer}>
-            <Text style={styles.menuText}>Debit / Credit Card</Text>
-          </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Payment2")}>
-            <MaterialIcons name="keyboard-arrow-right" style={styles.dropdownIcon} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back-outline" style={styles.icon} />
           </TouchableOpacity>
-        </TouchableOpacity>
+          <Text style={styles.title}>Payments</Text>
+        </View>
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("Payment5")}>
-          <FontAwesome name="bank" size={25} color="#000" style={styles.menuIcon} />
-          <View style={styles.menuTextContainer}>
-            <Text style={styles.menuText}>Net Banking</Text>
+        {/* Section 1 Heading */}
+        <Text style={styles.sectionTitle}>Credit & Debit Cards</Text>
+
+        {/* Add Card Details */}
+        <TouchableOpacity
+          style={styles.paymentItem}
+          onPress={() => navigation.navigate("Payment2")}
+        >
+          <View style={styles.iconTextRow}>
+            <Fontisto name="credit-card" size={18} color="#D70000" />
+            <Text style={styles.paymentText}>Add Card Details</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Payment5")}>
-            <MaterialIcons name="keyboard-arrow-right" style={styles.dropdownIcon} />
-          </TouchableOpacity>
+          <MaterialIcons
+            name="keyboard-arrow-right"
+            size={24}
+            color="#D70000"
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("Payment4")}>
-          <FontAwesome5 name="rupee-sign" size={30} color="#000" style={styles.menuIcon} />
-          <View style={styles.menuTextContainer}>
-            <Text style={styles.menuText}>UPI</Text>
+        {/* Section 2 Heading */}
+        <Text style={styles.sectionTitle}>Credit & Debit Cards</Text>
+
+        {/* UPI Apps */}
+        <TouchableOpacity
+          style={styles.paymentItem}
+          onPress={() => navigation.navigate("Payment4")}
+        >
+          <View style={styles.iconTextRow}>
+            <MaterialCommunityIcons
+              name="qrcode-scan"
+              size={22}
+              color="#D70000"
+            />
+            <Text style={styles.paymentText}>UPI Apps</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Payment4")}>
-            <MaterialIcons name="keyboard-arrow-right" style={styles.dropdownIcon} />
-          </TouchableOpacity>
+          <MaterialIcons name="keyboard-arrow-right" size={24} color="#000" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate("PaymentSuccess")}>
-          <MaterialCommunityIcons name="cash" size={40} color="#000" style={styles.menuIcon} />
-          <View style={styles.menuTextContainer}>
-            <Text style={styles.menuText}>Cash on Delivery</Text>
+        {/* Cash on Delivery */}
+        <TouchableOpacity
+          style={styles.paymentItem}
+          onPress={() => navigation.navigate("PaymentSuccess")}
+        >
+          <View style={styles.iconTextRow}>
+            <MaterialCommunityIcons name="cash" size={24} color="#D70000" />
+            <Text style={styles.paymentText}>Cash on Delivery</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("PaymentSuccess")}>
-            <MaterialIcons name="keyboard-arrow-right" style={styles.dropdownIcon} />
-          </TouchableOpacity>
+          <MaterialIcons name="keyboard-arrow-right" size={24} color="#000" />
         </TouchableOpacity>
-      </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("Payment1")}>
-        <Text style={styles.addButtonText}>Pay ₹10,499</Text>
-      </TouchableOpacity>
+        {/* Net Banking */}
+        <TouchableOpacity
+          style={styles.paymentItem}
+          onPress={() => navigation.navigate("Payment5")}
+        >
+          <View style={styles.iconTextRow}>
+            <FontAwesome name="university" size={20} color="#D70000" />
+            <Text style={styles.paymentText}>Net Banking</Text>
+          </View>
+          <MaterialIcons name="keyboard-arrow-right" size={24} color="#000" />
+        </TouchableOpacity>
+
+        {/* Bill Summary */}
+        <View style={styles.summaryContainer}>
+          <Text style={styles.summaryTitle}>Bill Summary</Text>
+
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Price</Text>
+            <Text style={styles.summaryValue}>₹1,500</Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Discount</Text>
+            <Text style={styles.summaryValue}>-₹0</Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Additional fees</Text>
+            <Text style={styles.summaryValue}>₹0</Text>
+          </View>
+
+          <View style={styles.separator} />
+
+          <View style={styles.summaryRow}>
+            <Text style={styles.totalLabel}>Total Amount</Text>
+            <Text style={styles.totalValue}>₹1,500</Text>
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
+// 🔽 Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-    padding: 20,
+    padding: 16,
   },
   icon: {
-    fontSize: 24,
+    width: 46, 
+    height: 46,
+    fontSize: 30,
     borderColor: "#E2E2E2",
     borderWidth: 2,
     borderRadius: 50,
-    padding: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 30,
-    fontWeight: '500',
-    fontFamily: 'DM',
-    marginLeft: 20,
-  },
-  title: {
-    fontWeight: '500',
-    fontSize: 24,
-    fontFamily: 'DM',
-    marginLeft: 23,
-  },
-  menuContainer: {
-    flex: 1,    
-  },
-  menuItem: {
-    flexDirection: "row", 
-    alignItems: "center", 
-    justifyContent: "space-between", 
-    paddingVertical: 15, 
-    paddingHorizontal: 15,
-    width:"92%",
-    marginLeft:15, 
-    borderColor: "#E2E2E2", 
-    borderWidth: 2, 
-    borderRadius: 16, 
-    marginBottom: 20, 
-    backgroundColor: "#fff", 
-  },
-  menuIcon: {
+    padding: 6,
     marginRight: 10,
   },
-  menuTextContainer: {
+  
+  title: {
     flex: 1,
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "600",
   },
-  menuText: {
-    fontSize: 20, 
-    fontWeight: "500", 
-    color: "#1E1E1E",
-    fontFamily: "DM", 
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    marginLeft: 16,
+    marginTop: 16,
+    marginBottom: 8,
+    color: "#000",
   },
-  menusubText: {
-    fontSize: 12,
-    color: "rgba(0, 0, 0, 0.56)", 
-    fontWeight: "500",
-    fontFamily: "DM", 
-  },
-  dropdownIcon: {
-    width: 20,
-    height: 30,
-    fontSize: 18,
-    lineHeight: 26,
-    color: "rgba(0, 0, 0, 0.56)",
-    justifyContent: "center",
+  paymentItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    borderColor: "rgba(0, 0, 0, 0.56)",
-    borderWidth: 1.5,
-    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#E2E2E2",
+    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    marginHorizontal: 16,
+    marginBottom: 12,
     backgroundColor: "#fff",
   },
-  addButton: {
-    backgroundColor: "#0000008F",
-    padding: 15,
-    borderRadius: 30,
+  iconTextRow: {
+    flexDirection: "row",
     alignItems: "center",
-    position: "absolute",
-    bottom: 20,
-    alignSelf: "center",
-    width: "90%",
   },
-  addButtonText: {
-    color: "#fff",
+  paymentText: {
+    fontSize: 16,
+    fontWeight: "500",
+    marginLeft: 10,
+    color: "#000",
+  },
+  summaryContainer: {
+    margin: 16,
+    borderRadius: 10,
+    borderColor: "#E2E2E2",
+    borderWidth: 1,
+    padding: 16,
+    backgroundColor: "#fff",
+  },
+  summaryTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    marginBottom: 12,
+    color: "#000",
+  },
+  summaryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8,
+  },
+  summaryLabel: {
+    fontSize: 14,
+    color: "#000",
+  },
+  summaryValue: {
+    fontSize: 14,
+    color: "#000",
+  },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    marginVertical: 12,
+  },
+  totalLabel: {
     fontSize: 16,
     fontWeight: "600",
-    fontFamily: "DM", 
+    color: "#000",
+  },
+  totalValue: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#D70000",
   },
 });

@@ -16,7 +16,9 @@ const MenuItem = ({ icon, title, onPress, showBorder = true }) => (
   >
     <View style={styles.menuContent}>
       <View style={styles.leftContent}>
-        <Ionicons name={icon} size={24} color="black" />
+        <View style={styles.iconCircle}>
+          <Ionicons name={icon} size={20} color="white" />
+        </View>
         <Text style={styles.menuText}>{title}</Text>
       </View>
       <Ionicons name="chevron-forward" style={styles.dropdownIcon} />
@@ -30,24 +32,24 @@ export default function Support({ navigation }) {
   };
 
   const handleCustomerSupportPress = () => {
-    navigation.navigate('CustomerSupport'); 
+    navigation.navigate('CustomerSupport');
   };
 
   const handleFeedbackPress = () => {
-    navigation.navigate('Feedback'); 
+    navigation.navigate('Feedback');
   };
 
   const handleHelpPress = () => {
-    navigation.navigate('Help'); 
+    navigation.navigate('Help');
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
+
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.icon}
           onPress={() => navigation.goBack()}
         >
@@ -57,28 +59,27 @@ export default function Support({ navigation }) {
 
       <Text style={styles.headerTitle}>Support & Help</Text>
 
-
       <View style={styles.menuContainer}>
-        <MenuItem 
+        <MenuItem
           icon="document-text"
           title="FAQ's"
           onPress={handleFAQPress}
         />
-        <MenuItem 
+        <MenuItem
           icon="headset"
           title="Customer Support"
           onPress={handleCustomerSupportPress}
         />
-        <MenuItem 
+        <MenuItem
           icon="chatbox"
           title="Feedback & Suggestions"
           onPress={handleFeedbackPress}
         />
-        <MenuItem 
+        <MenuItem
           icon="help-circle"
           title="Help"
           onPress={handleHelpPress}
-          showBorder={false}  // Last item doesn't need a border
+          showBorder={false}
         />
       </View>
     </SafeAreaView>
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   icon: {
-    marginTop:10,
+    marginTop: 10,
     fontSize: 30,
     borderColor: "#E2E2E2",
     borderWidth: 2,
@@ -105,14 +106,15 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
+    marginTop: 20,
     fontWeight: '500',
     marginLeft: 16,
     color: '#0000008F',
     fontFamily: 'DM',
   },
   menuContainer: {
-    marginTop: 20,
+    marginTop: 40,
   },
   menuItem: {
     paddingVertical: 16,
@@ -123,6 +125,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E2E2E2',
   },
   menuContent: {
+    padding:5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -131,23 +134,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  iconCircle: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   menuText: {
-    fontSize: 20,
+    fontSize: 18,
     marginLeft: 12,
     color: '#000',
     fontFamily: 'DM',
   },
   dropdownIcon: {
-    width:20,
-    height: 30,
     fontSize: 18,
-    lineHeight:26,
     color: "#000",
-    justifyContent: "center",
-    alignItems: "center",
-    borderColor: "rgba(0, 0, 0, 0.56)",
-    borderWidth: 1.5,
-    borderRadius: 4,
-    backgroundColor: "#fff",
   },
 });

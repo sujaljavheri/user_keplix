@@ -1,31 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function PasswordReseted({ navigation }) {
-  const [scale] = useState(new Animated.Value(0));
-
   useEffect(() => {
-    Animated.spring(scale, {
-      toValue: 1,
-      friction: 3,
-      tension: 100,
-      useNativeDriver: true,
-    }).start();
+    const timer = setTimeout(() => {
+      navigation.navigate('Security');
+    }, 3000);
 
-    const timeout = setTimeout(() => {
-      navigation.navigate('Security'); 
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View style={[styles.checkContainer, { transform: [{ scale }] }]}>
-        <Ionicons name="checkmark-circle" style={styles.checkIcon} />
-      </Animated.View>
-      <Text style={styles.message}>Your password has been changed successfully!</Text>
+      <View style={styles.imagePlaceholder}>
+        <View style={styles.iconWrapper}>
+          <Ionicons name="checkmark" size={40} color="white" />
+        </View>
+      </View>
+      <Text style={styles.text}>
+        Your password has been changed successfully!
+      </Text>
     </SafeAreaView>
   );
 }
@@ -33,27 +28,35 @@ export default function PasswordReseted({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 200,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  checkContainer: {
+  imagePlaceholder: {
+    width: 260,
+    height: 200,
+    backgroundColor: '#ededed',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconWrapper: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#D91E18',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E7F9F2',
-    borderRadius: 100,
-    width: 120,
-    height: 120,
+    marginTop: 10,
+    bottom: -80, // Positioned at bottom half
   },
-  checkIcon: {
-    fontSize: 80,
-    color: '#4CAF50',
-  },
-  message: {
-    marginTop: 20,
-    fontSize: 18,
+  text: {
+    fontSize: 20,
+    color: '#555',
     textAlign: 'center',
-    color: '#333',
-    fontFamily:'DM',
+    marginTop: 20,
+    paddingHorizontal: 20,
+    fontFamily: 'DM',
   },
 });

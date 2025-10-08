@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   addButtonEnabled: {
-    backgroundColor: "#4E46B4",
+    backgroundColor: "",
   },
   addButtonText: {
     color: "#fff",
@@ -354,9 +354,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   focusedInput: {
-    borderColor: "#4E46B4",
+    borderColor: "#D91E18",
   },
   focusedLabel: {
-    color: "#4E46B4",
+    color: "#D91E18",
   },
 });

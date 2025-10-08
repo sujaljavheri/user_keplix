@@ -28,7 +28,7 @@ export default function BookingConfirmation ({ navigation }){
         <Switch
           value={notificationsEnabled}
           onValueChange={setNotificationsEnabled}
-          trackColor={{ false: '#D1D1D6', true: '#5856D6' }}
+          trackColor={{ false: '#D1D1D6', true: '#D10000' }}
           thumbColor={'#FFFFFF'}
         />
       </View>
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     fontFamily: 'DM',
   },
   calendarButton: {
-    backgroundColor: '#40A69F',
+    backgroundColor: '#D10000',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   bottomButton: {
-    backgroundColor: '#4E46B4',
+    backgroundColor: '#D10000',
     marginHorizontal: 20,
     padding: 15,
     borderRadius: 70,

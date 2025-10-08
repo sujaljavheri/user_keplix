@@ -15,6 +15,8 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import Footer from "../Footer/Footer";
+import WorkshopsNearby from "../cards/WorkshopsNearby";
+import WorkshopNear from "../cards/WorkshopNear";
 export default function Homepage({ navigation }) {
   const [activeDot, setActiveDot] = useState(0);
   const featuredServices = [
@@ -34,8 +36,8 @@ export default function Homepage({ navigation }) {
 
   const banners = [
     {
-      color: "#4E46B4",
-      iconBgColor: "#7972D6",
+      color: "#000",
+      iconBgColor: "#000",
       discountText: "15%",
       discountDescription: "discount on\nthe first\norder.",
     },
@@ -45,9 +47,17 @@ export default function Homepage({ navigation }) {
       discountText: "24/7",
       discountDescription: "Delivery service",
     },
+    {
+      color: "#8E8E8E",
+      iconBgColor: "#8E8E8E",
+      discountText: "24/7",
+      discountDescription: "Delivery service",
+    },
   ];
 
   const currentBanner = banners[activeDot];
+  // State for popup
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -61,19 +71,9 @@ export default function Homepage({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={[styles.header, { backgroundColor: currentBanner.color }]}>
-          <View style={styles.userInfo}>
-            <Image
-              source={require("../../assets/images/3.jpeg")}
-              style={styles.avatar}
-            />
-            <Text
-              style={[
-                styles.greeting,
-                { backgroundColor: currentBanner.iconBgColor },
-              ]}
-            >
-              hello, Nithish
-            </Text>
+          <View style={styles.locationContainer}>
+            <Ionicons className="" name="location" size={20} color="red" />
+            <Text style={styles.locationText}>Address, loca....</Text>
           </View>
           <View style={styles.headerIcons}>
             <TouchableOpacity onPress={() => navigation.navigate("SearchPage")}>
@@ -87,19 +87,70 @@ export default function Homepage({ navigation }) {
                 ]}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("HamburgerMenu")}
-            >
-              <Ionicons
-                name="menu"
-                size={24}
-                color="white"
-                style={[
-                  styles.icon,
-                  { backgroundColor: currentBanner.iconBgColor },
-                ]}
-              />
-            </TouchableOpacity>
+            {/* Hamburger / 3-dot menu */}
+            <View>
+              <TouchableOpacity onPress={() => setShowMenu(!showMenu)}>
+                <Ionicons
+                  name="ellipsis-vertical"
+                  size={24}
+                  color="white"
+                  style={[
+                    styles.icon,
+                    { backgroundColor: currentBanner.iconBgColor },
+                  ]}
+                />
+              </TouchableOpacity>
+
+              {showMenu && (
+                <View
+                  style={{
+                    position: "absolute",
+                    top: 40,
+                    right: 0,
+                    zIndex: 999,
+                  }}
+                >
+                  {/* Triangle pointer */}
+                  <View style={styles.triangle} />
+
+                  {/* Popup container */}
+                  <View style={styles.popupMenu}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowMenu(false);
+                        navigation.navigate("Support");
+                      }}
+                    >
+                      <Text style={styles.popupItem}>About Us</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowMenu(false);
+                        navigation.navigate("Support");
+                      }}
+                    >
+                      <Text style={styles.popupItem}>Invite a Friend</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowMenu(false);
+                        navigation.navigate("Support");
+                      }}
+                    >
+                      <Text style={styles.popupItem}>Help & Support</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setShowMenu(false);
+                        navigation.navigate("Support");
+                      }}
+                    >
+                      <Text style={styles.popupItem}>Report an Issue</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </View>
           </View>
         </View>
 
@@ -145,7 +196,6 @@ export default function Homepage({ navigation }) {
             <Text style={styles.newOrderText}>New order</Text>
           </TouchableOpacity>
         </View>
-
 
         <FlatList
           data={featuredServices}
@@ -205,7 +255,11 @@ export default function Homepage({ navigation }) {
 
             <View style={styles.upcomingCard}>
               <View style={styles.upcomingInfo}>
-                <MaterialIcons name="cleaning-services" size={24} color="#666" />
+                <MaterialIcons
+                  name="cleaning-services"
+                  size={24}
+                  color="#666"
+                />
                 <View style={styles.upcomingDetails}>
                   <Text style={styles.upcomingTitle}>Detailing</Text>
                   <Text style={styles.upcomingLocation}>
@@ -228,25 +282,18 @@ export default function Homepage({ navigation }) {
           </ScrollView>
         </View>
 
-        {/* Recommended Section */}
-        <View style={styles.recommendedSection}>
+        {/* Workshops Nearby Section */}
+        <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Recommended</Text>
-            <View style={styles.newProvidersBadge}>
-              <Text style={styles.badgeText}>new providers</Text>
-            </View>
+            <Text style={styles.sectionTitle}>Workshops Nearby</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("WorkshopDetails")}
+            >
+              <Text style={styles.seeAll}>See All &gt;</Text>
+            </TouchableOpacity>
           </View>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <Image
-              source={require("../../assets/images/r.png")}
-              style={styles.recommendedImage}
-            />
-            <Image
-              source={require("../../assets/images/r1.jpg")}
-              style={styles.recommendedImage}
-            />
-          </ScrollView>
+          <WorkshopNear navigation={navigation} />
         </View>
       </ScrollView>
 
@@ -310,6 +357,56 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  locationContainer: {
+    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#2C2C2C", // dark bg like your screenshot
+    borderRadius: 25,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    width: "40%",
+  },
+  locationText: {
+    color: "#fff",
+    marginLeft: 6,
+    fontSize: 14,
+  },
+  triangle: {
+    position: "absolute",
+    top: -8,
+    right: 15,
+    width: 16,
+    height: 16,
+    backgroundColor: "#fff",
+    transform: [{ rotate: "45deg" }],
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 4,
+  },
+  popupMenu: {
+    marginTop: 8,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingVertical: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 5,
+    width: 180,
+  },
+  popupItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    fontSize: 16,
+    color: "#000",
+  },
+
   userInfo: {
     flexDirection: "row",
     alignItems: "center",
@@ -428,9 +525,9 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: "500",
-    fontFamily: "DM",
-    color: "#0000008F",
+    fontWeight: "bold",
+    fontFamily: "Bold",
+    color: "black",
   },
   seeAllText: {
     fontSize: 16,
@@ -442,32 +539,32 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   gridItem: {
-  flexBasis: '25%',   // 4 columns
-  alignItems: "center",
-  justifyContent: "center",
-  paddingVertical: 10,
-},
-iconBox: {
-  backgroundColor: "#fff",
-  borderWidth: 1,
-  borderColor: "#E0E0E0",
-  borderRadius: 12,
-  width: 60,
-  height: 60,
-  justifyContent: "center",
-  alignItems: "center",
-  shadowColor: "#000",
-  shadowOpacity: 0.05,
-  shadowOffset: { width: 0, height: 2 },
-  shadowRadius: 4,
-  elevation: 2,
-},
-gridItemText: {
-  fontSize: 12,
-  color: "#000",
-  marginTop: 6,
-  textAlign: "center",
-},
+    flexBasis: "25%", // 4 columns
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+  },
+  iconBox: {
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    borderRadius: 12,
+    width: 60,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  gridItemText: {
+    fontSize: 12,
+    color: "#000",
+    marginTop: 6,
+    textAlign: "center",
+  },
 
   //   gridItem: {
   //   flex: 1,
@@ -538,14 +635,13 @@ gridItemText: {
     padding: 20,
   },
   newProvidersBadge: {
-    backgroundColor: "#5D5FEF",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 15,
   },
   badgeText: {
-    color: "white",
-    fontSize: 12,
+    color: "red",
+    fontSize: 16,
   },
   recommendedImage: {
     width: 250,
@@ -584,5 +680,55 @@ gridItemText: {
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
     marginLeft: 10,
+  },
+  section: {
+    padding: 20,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "black",
+  },
+  seeAll: {
+    color: "red",
+    fontSize: 14,
+  },
+  card: {
+    width: 250,
+    marginRight: 15,
+    borderRadius: 15,
+    backgroundColor: "#fff",
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  image: {
+    width: "100%",
+    height: 120,
+  },
+  info: {
+    padding: 10,
+  },
+  discount: {
+    color: "red",
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  details: {
+    fontSize: 12,
+    color: "#666",
   },
 });

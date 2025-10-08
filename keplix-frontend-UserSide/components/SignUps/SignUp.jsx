@@ -106,7 +106,7 @@ export default function SignUp({ navigation }) {
       <TouchableOpacity
         style={[
           styles.button,
-          { backgroundColor: isFormValid ? 'red' : '#888' },
+          { backgroundColor: isFormValid ? '#D91F26' : '#888' },
         ]}
         onPress={handleVerify}
         activeOpacity={0.7}
@@ -117,7 +117,7 @@ export default function SignUp({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("SignUpPhone")}>
         <Text style={styles.createAccountText}>
           or Sign up using 
-          <Text style={{color: "red" , fontWeight: "15"}}>{" "}Phone number</Text>
+          <Text style={{color: "#D91F26" , fontWeight: "15"}}>{" "}Phone number</Text>
         </Text>
       </TouchableOpacity>
 
@@ -137,14 +137,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   backcontainer: {
+    marginTop:20,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
   },
   icon: {
-    fontSize: 30,
-    borderColor: '#E2E2E2',
-    color: 'black',
+   fontSize: 30,
+    color: "#494747ff",
+    borderColor: "#aba3a3",
     borderWidth: 2,
     borderRadius: 50,
   },
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: '#D91F26',
     borderRadius: 70,
     paddingVertical: 15,
     alignItems: 'center',
@@ -246,7 +247,7 @@ const styles = StyleSheet.create({
     fontFamily: 'DM',
   },
   link: {
-    color: 'red',
+    color: '#D91F26',
     textDecorationLine: 'underline',
     fontFamily: 'DM',
   },

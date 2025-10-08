@@ -159,6 +159,9 @@ export default function ServicesCard({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.backgroundContain}>
+
+      </View>
       <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -313,6 +316,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   headerRow: {
+    marginTop:10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

@@ -145,12 +145,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 20,
   },
-  icon: {
-    fontSize: 24,
+icon: {
+    width: 46, 
+    height: 46,
+    fontSize: 30,
     borderColor: "#E2E2E2",
     borderWidth: 2,
     borderRadius: 50,
-    padding: 5,
+    padding: 6,
+    marginRight: 10,
   },
   subtitle: {
     fontSize: 16,

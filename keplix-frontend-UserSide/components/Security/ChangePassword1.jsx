@@ -76,7 +76,7 @@ export default function ChangePassword1({ navigation }) {
           <TouchableOpacity
             style={[
               styles.button,
-              { backgroundColor: isValid ? '#4E46B4' : '#0000008F' }
+              { backgroundColor: isValid ? 'red' : '#0000008F' }
             ]}
             disabled={!isValid}
             onPress={() => navigation.navigate('PasswordReseted')}
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   backcontainer: {
+    marginTop:30,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 40,

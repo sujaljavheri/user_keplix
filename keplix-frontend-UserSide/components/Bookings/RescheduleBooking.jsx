@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   backcontainer: {
+    marginTop:20,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
@@ -360,6 +361,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   timeSlotsContainer: {
+    marginTop:30,
     padding: 16,
   },
   sectionTitle: {
@@ -372,9 +374,12 @@ const styles = StyleSheet.create({
   timeGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: 10,
+    
   },
   timeSlot: {
+    width:"30%",
+    height:"40%",
     marginBottom:10,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -382,13 +387,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
     backgroundColor: '#fff',
+    
   },
   selectedTimeSlot: {
     backgroundColor: 'red',
     borderColor: '#E2E2E2',
   },
   timeText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#000',
     fontWeight: '500',
     fontFamily: 'DM',
@@ -399,7 +405,7 @@ const styles = StyleSheet.create({
     fontFamily: 'DM',
   },
   bookButton: {
-    marginTop:100,
+    marginTop:120,
     margin: 16,
     padding: 16,
     borderRadius: 70,

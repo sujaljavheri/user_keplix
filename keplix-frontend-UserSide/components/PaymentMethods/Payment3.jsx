@@ -60,14 +60,19 @@ export default function Payment3({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name={"arrow-back-outline"} style={styles.icon} />
         </TouchableOpacity>
+        <Text style={styles.title}>Payment</Text>
       </View>
 
-      <Text style={styles.title}>Payment</Text>
       <Text style={styles.subtitle}>Select payment method</Text>
 
       <View style={styles.menuContainer}>
         <View style={styles.menuItem}>
-          <Fontisto name="credit-card" size={20} color="#000" style={styles.menuIcon} />
+          <Fontisto
+            name="credit-card"
+            size={20}
+            color="#000"
+            style={styles.menuIcon}
+          />
           <View style={styles.menuTextContainer}>
             <Text style={styles.menuText}>Debit / Credit Card</Text>
           </View>
@@ -97,9 +102,12 @@ export default function Payment3({ navigation }) {
         disabled={otp.length !== 6}
         onPress={handlePayment}
       >
-        <Text style={styles.payButtonText}
-         onPress={() => navigation.navigate("PaymentSuccess")}
-         >Pay ₹10,499</Text>
+        <Text
+          style={styles.payButtonText}
+          onPress={() => navigation.navigate("PaymentSuccess")}
+        >
+          Pay ₹10,499
+        </Text>
       </TouchableOpacity>
 
       {/* Resend OTP Modal */}
@@ -157,16 +165,20 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   icon: {
-    fontSize: 24,
+    width: 46,
+    height: 46,
+    fontSize: 30,
     borderColor: "#E2E2E2",
     borderWidth: 2,
     borderRadius: 50,
-    padding: 5,
+    padding: 6,
+    marginRight: 10,
   },
   title: {
+    flex: 1,
     fontWeight: "500",
     fontSize: 24,
-    marginLeft: 23,
+    marginLeft: "28%",
   },
   subtitle: {
     fontSize: 16,
@@ -175,14 +187,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   menuContainer: {
-    paddingVertical: 15, 
+    paddingVertical: 15,
     paddingHorizontal: 15,
     width: "92%",
-    marginLeft: 15, 
-    borderColor: "#E2E2E2", 
-    borderWidth: 2, 
-    borderRadius: 16, 
-    marginBottom: 20, 
+    marginLeft: 15,
+    borderColor: "#E2E2E2",
+    borderWidth: 2,
+    borderRadius: 16,
+    marginBottom: 20,
     padding: 20,
   },
   menuItem: {
@@ -219,13 +231,13 @@ const styles = StyleSheet.create({
   },
   resendButton: {
     borderRadius: 8,
-    textAlign: 'center',
-    color: '#4E46B4',
+    textAlign: "center",
+    color: "#D91E18",
     fontSize: 16,
-    borderColor: '#E2E2E2',
+    borderColor: "#E2E2E2",
     borderWidth: 2,
     padding: 15,
-    fontFamily: 'DM',
+    fontFamily: "DM",
     marginBottom: 20,
   },
   checkboxContainer: {
@@ -253,7 +265,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     color: "#0000008F",
-    fontFamily: 'DM',
+    fontFamily: "DM",
   },
   payButton: {
     padding: 15,
@@ -265,7 +277,7 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   payButtonEnabled: {
-    backgroundColor: "#4E46B4",
+    backgroundColor: "#D91E18",
   },
   payButtonDisabled: {
     backgroundColor: "#0000008F",
@@ -278,49 +290,49 @@ const styles = StyleSheet.create({
   // Modal styles
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 16,
     padding: 20,
-    width: '80%',
-    alignItems: 'center',
+    width: "80%",
+    alignItems: "center",
     elevation: 5,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 15,
-    color: '#4E46B4',
+    color: "#4E46B4",
   },
   modalTitleError: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 15,
-    color: '#FF3B30',
+    color: "#FF3B30",
   },
   modalText: {
     fontSize: 16,
     marginBottom: 20,
-    textAlign: 'center',
-    color: '#333',
+    textAlign: "center",
+    color: "#333",
   },
   modalButton: {
-    backgroundColor: '#4E46B4',
+    backgroundColor: "#4E46B4",
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 8,
   },
   modalButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });

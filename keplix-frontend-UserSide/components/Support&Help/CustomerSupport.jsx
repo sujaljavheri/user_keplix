@@ -12,9 +12,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 export default function CustomerSupport({ navigation }) {
   const options = [
-    { icon: 'phone', title: 'Call us', subtitle: 'Customer care available 24/7' },
-    { icon: 'message-text-outline', title: 'Message us', subtitle: 'Chat available from 8 AM – 12 AM IST' },
-    { icon: 'alert-circle-outline', title: 'Raise complaint', subtitle: 'Will receive a confirmation once registered' },
+    {
+      icon: 'phone',
+      title: 'Call us',
+      subtitle: 'Customer care available 24/7',
+    },
+    {
+      icon: 'message-text-outline',
+      title: 'Message us',
+      subtitle: 'Chat available from 8 AM – 12 AM IST',
+    },
+    {
+      icon: 'alert-circle-outline',
+      title: 'Raise complaint',
+      subtitle: 'Will receive a confirmation once registered',
+    },
   ];
 
   return (
@@ -27,12 +39,19 @@ export default function CustomerSupport({ navigation }) {
         </View>
 
         <Text style={styles.title}>Customer Support</Text>
-        <Text style={styles.description}>For any query regarding Keplix service. Please contact to us</Text>
+        <Text style={styles.description}>
+          For any query regarding Keplix service. Please contact to us
+        </Text>
 
         {options.map((item, index) => (
           <TouchableOpacity key={index} style={styles.optionBox}>
             <View style={styles.optionContent}>
-              <MaterialCommunityIcons name={item.icon} size={24} color="#000" style={styles.optionIcon} />
+              <MaterialCommunityIcons
+                name={item.icon}
+                size={24}
+                color="#D91E18" // 🔴 Icon color set to red
+                style={styles.optionIcon}
+              />
               <View>
                 <Text style={styles.optionTitle}>{item.title}</Text>
                 <Text style={styles.optionSubtitle}>{item.subtitle}</Text>
@@ -59,7 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   backButton: {
-    marginTop:10,
+    marginTop: 20,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -69,7 +88,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
+    marginTop: 20,
     fontWeight: '500',
     marginBottom: 10,
     fontFamily: 'DM',
@@ -87,6 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 15,
     marginBottom: 15,
+    padding:20,
   },
   optionContent: {
     flexDirection: 'row',
@@ -96,7 +117,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   optionTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
     fontFamily: 'DM',
     color: '#000',

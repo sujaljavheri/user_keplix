@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
-  Image
+  Image,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -64,14 +64,17 @@ export default function Payment4({ navigation }) {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name={"arrow-back-outline"} style={styles.icon} />
           </TouchableOpacity>
+          <Text style={styles.title}>Payment</Text>
         </View>
-
-        <Text style={styles.title}>Payment</Text>
-        <Text style={styles.subtitle}>Select payment method</Text>
 
         <View style={styles.cardContainer}>
           <TouchableOpacity style={styles.menuItem}>
-            <FontAwesome5 name="rupee-sign" size={24} color="#000" style={styles.menuIcon} />
+            <FontAwesome5
+              name="rupee-sign"
+              size={24}
+              color="#000"
+              style={styles.menuIcon}
+            />
             <View style={styles.menuTextContainer}>
               <Text style={styles.menuText}>UPI</Text>
             </View>
@@ -132,7 +135,6 @@ export default function Payment4({ navigation }) {
               value={upiId}
               onChangeText={handleUpiInputChange}
             />
-
             <TouchableOpacity
               style={[
                 styles.verifyButton,
@@ -141,8 +143,8 @@ export default function Payment4({ navigation }) {
                     ? isVerified
                       ? "#fff"
                       : "#40A69F"
-                    : "#0000008F"
-                }
+                    : "#0000008F",
+                },
               ]}
               onPress={handleVerify}
               disabled={!isUpiValid}
@@ -150,7 +152,7 @@ export default function Payment4({ navigation }) {
               <Text
                 style={[
                   styles.verifyButtonText,
-                  isVerified && { color: "#40A69F" },
+                  isVerified && { color: "#40A69F" }, // turns text green when verified
                 ]}
               >
                 {isVerified ? "Verified" : "Verify"}
@@ -162,7 +164,9 @@ export default function Payment4({ navigation }) {
         <TouchableOpacity
           style={[
             styles.payButton,
-            isVerified ? { backgroundColor: "#4E46B4" } : { backgroundColor: "#0000008F" },
+            isVerified
+              ? { backgroundColor: "#D91E18" }
+              : { backgroundColor: "#0000008F" },
           ]}
           onPress={() => {
             if (isVerified) {
@@ -190,25 +194,29 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   icon: {
-    fontSize: 24,
+    width: 46,
+    height: 46,
+    fontSize: 30,
     borderColor: "#E2E2E2",
     borderWidth: 2,
     borderRadius: 50,
-    padding: 5,
+    padding: 6,
+    marginRight: 10,
   },
   subtitle: {
     fontSize: 16,
     color: "#666",
     marginBottom: 30,
-    fontWeight: '500',
-    fontFamily: 'DM',
+    fontWeight: "500",
+    fontFamily: "DM",
     marginLeft: 20,
   },
   title: {
-    fontWeight: '500',
+    flex: 1,
+    fontWeight: "500",
     fontSize: 24,
-    fontFamily: 'DM',
-    marginLeft: 23,
+    fontFamily: "DM",
+    marginLeft: "28%",
   },
   cardContainer: {
     flex: 1,
@@ -252,48 +260,48 @@ const styles = StyleSheet.create({
   chooseAppText: {
     fontSize: 12,
     color: "#000",
-    fontWeight: "500",
+    fontWeight: "700",
     fontFamily: "DM",
     marginBottom: 10,
   },
   appRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginVertical: 20,
   },
   appIcon: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 10,
   },
   appImage: {
-    height: 44,
-    width: 44,
-    resizeMode: 'contain',
+    height: 40,
+    width: 40,
+    resizeMode: "contain",
   },
   iconBorder: {
     borderWidth: 2,
-    borderColor: '#E2E2E2',
+    borderColor: "#E2E2E2",
     borderRadius: 8,
     padding: 10,
   },
   dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 10,
     marginHorizontal: 10,
-    width: '95%',
+    width: "95%",
   },
   line: {
     flex: 1,
-    height: 1,
-    backgroundColor: '#ddd',
+    height: 2,
+    backgroundColor: "#ddd",
   },
   orText: {
     marginHorizontal: 10,
-    color: '#0000008F',
-    fontWeight: '600',
-    fontFamily: 'DM',
+    color: "#0000008F",
+    fontWeight: "600",
+    fontFamily: "DM",
   },
   input: {
     borderWidth: 1,
@@ -301,7 +309,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     fontSize: 14,
-    width: '75%',
+    width: "75%",
     marginHorizontal: 5,
   },
   verifyButton: {
@@ -312,8 +320,8 @@ const styles = StyleSheet.create({
   verifyButtonText: {
     color: "#fff",
     fontSize: 14,
-    fontWeight: '600',
-    fontFamily: 'DM',
+    fontWeight: "600",
+    fontFamily: "DM",
   },
   payButton: {
     padding: 15,
@@ -326,6 +334,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
-    fontFamily: 'DM',
+    fontFamily: "DM",
+  },
+  verifyButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+    fontFamily: "DM",
   },
 });

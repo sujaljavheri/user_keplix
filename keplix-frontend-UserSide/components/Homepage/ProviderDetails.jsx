@@ -98,7 +98,7 @@ export default function ProviderDetails ({ navigation }) {
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Other Services:</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=> navigation.navigate("WorkshopNear")}>
                 <Text style={styles.seeAll}>See all</Text>
               </TouchableOpacity>
             </View>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 20,
-    color: '#4E46B4',
+    color: '#D91E18',
     fontWeight: "500",
     fontFamily: "DM",
     borderColor: "#E2E2E2",

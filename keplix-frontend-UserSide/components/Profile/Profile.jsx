@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Footer from "../Footer/Footer";
@@ -24,85 +25,90 @@ const SettingsItem = ({ icon, title, navigation, targetScreen }) => (
 );
 
 export default function Profile({ navigation }) {
+  // Dummy user data (replace with backend fetched data later)
+  const [user, setUser] = useState({
+    name: "Nithish Kumar",
+    phone: "+91 72838338393",
+    image: require("../../assets/images/3.jpeg"),
+  });
+
+  // Example for future backend fetch
+  useEffect(() => {
+    // fetchUserData().then(data => setUser(data));
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Ionicons name={"arrow-back"} size={24} color="#000" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Menu</Text>
-        <View style={{ width: 24 }} /> {/* Spacer for symmetry */}
-      </View>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        {/* Red Header with Profile Image */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back-outline" style={styles.icon} />
+          </TouchableOpacity>
 
-      {/* Profile Card */}
-      <TouchableOpacity
-        style={styles.profileSection}
-        onPress={() => navigation.navigate("UserProfile")}
-      >
-        <View style={styles.profileInfo}>
-          <Image
-            source={require("../../assets/images/3.jpeg")}
-            style={styles.profileImage}
-          />
-          <View>
-            <Text style={styles.profileName}>Nithish Kumar</Text>
-            <Text style={styles.profilePhone}>+91 9731013245</Text>
+          <View style={styles.profileWrapper}>
+            <TouchableOpacity onPress={()=> navigation.navigate("UserProfile")}>
+              <Image source={user.image} style={styles.profileImage} />
+            <TouchableOpacity style={styles.editIcon}>
+              <Ionicons name="pencil" size={18} color="#fff" />
+            </TouchableOpacity>
+            </TouchableOpacity>
           </View>
+
+          <Text style={styles.profileName}>{user.name}</Text>
+          <Text style={styles.profilePhone}>{user.phone}</Text>
         </View>
-        <TouchableOpacity
-          style={styles.chevronButton}
-          onPress={() => navigation.navigate("UserProfile")}
-        >
-          <Ionicons name="chevron-forward" size={20} color="#FF0000" />
-        </TouchableOpacity>
-      </TouchableOpacity>
 
-      {/* Menu Items */}
-      <View style={styles.settingsList}>
-        <SettingsItem
-          icon="card"
-          title="Payment Methods"
-          navigation={navigation}
-          targetScreen="UpdatePayment"
-        />
-        <SettingsItem
-          icon="time-outline"
-          title="Booking History"
-          navigation={navigation}
-          targetScreen="BookingList"
-        />
-        <SettingsItem
-          icon="star"
-          title="My Reviews"
-          navigation={navigation}
-          targetScreen="ReviewList"
-        />
-        <SettingsItem
-          icon="shield"
-          title="Security Settings"
-          navigation={navigation}
-          targetScreen="Security"
-        />
-        <SettingsItem
-          icon="notifications"
-          title="Notification Settings"
-          navigation={navigation}
-          targetScreen="Notification"
-        />
-        <SettingsItem
-          icon="help-circle-outline"
-          title="Support & Help"
-          navigation={navigation}
-          targetScreen="Support"
-        />
-      </View>
+        {/* Settings List */}
+        <View style={styles.settingsList}>
+          <SettingsItem
+            icon="card"
+            title="Payment Methods"
+            navigation={navigation}
+            targetScreen="UpdatePayment"
+          />
+          <SettingsItem
+            icon="star"
+            title="My Reviews"
+            navigation={navigation}
+            targetScreen="ReviewList"
+          />
+          <SettingsItem
+            icon="shield"
+            title="Security Settings"
+            navigation={navigation}
+            targetScreen="Security"
+          />
+          <SettingsItem
+            icon="notifications"
+            title="Notification Settings"
+            navigation={navigation}
+            targetScreen="Notification"
+          />
+          <SettingsItem
+            icon="help-circle-outline"
+            title="Support & Help"
+            navigation={navigation}
+            targetScreen="Support"
+          />
+        </View>
 
-      {/* Footer */}
-      {/* <Footer style ={styles.footer} navigation={navigation} /> */}
+        {/* Bottom Actions */}
+        <View style={styles.bottomActions}>
+          <TouchableOpacity style={styles.deleteButton}
+          onPress={() => navigation.replace("Deleted")}
+          >
+            <Text style={styles.deleteButtonText}>Delete Account</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.logoutButton}
+          onPress={() => navigation.replace("SignIn")}
+          >
+            <Text style={styles.logoutButtonText}>Log Out</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <Footer navigation={navigation} />
     </SafeAreaView>
   );
 }
@@ -112,84 +118,72 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+  icon: {
+    fontSize: 20,
+    color:"#fff",
+    borderColor: "#E2E2E2",
+    borderWidth: 2,
+    borderRadius: 50,
+    padding: 5,
+    marginRight: "83%",
+    marginTop: 10,
   },
-  headerTitle: {
+
+  header: {
+    backgroundColor: "#D91E18",
+    alignItems: "center",
+    paddingTop: 20,
+    position: "relative",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  profileWrapper: {
+    position: "relative",
+    marginTop: 20,
+  },
+  profileImage: {
+    top: 90,
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    borderWidth: 3,
+    borderColor: "#fff",
+  },
+  editIcon: {
+    top: 80,
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#D91E18",
+    padding: 6,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
+  profileName: {
+    top: 80,
+    marginTop: 12,
     fontSize: 20,
     fontWeight: "bold",
     color: "#000",
   },
-  backButton: {
-    padding: 5,
-    borderRadius: 50,
-    borderWidth: 1.5,
-    borderColor: "#E2E2E2",
-  },
-  chevronButton: {
-    width: 34,
-    height: 34,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: "#c7c4c4ff",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-},
-
-  profileSection: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 20,
-    marginHorizontal: 16,
-    marginBottom: 20,
-    borderWidth: 2,
-    borderColor: "#c7c4c4ff",
-    borderRadius: 16,
-    backgroundColor: "#fff",
-  },
-  profileInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  profileImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 12,
-    backgroundColor: "#f0f0f0",
-    marginRight: 12,
-  },
-  profileName: {
-    fontWeight: "600",
-    color: "#000",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
   profilePhone: {
-    marginTop: 2,
-    fontSize: 16,
-    color: "red",
-    fontWeight: "bold",
+    top: 80,
+    fontSize: 15,
+    color: "#444",
+    marginTop: 4,
   },
   settingsList: {
-    borderTopWidth: 1,
-    borderTopColor: "#E2E2E2",
+    marginTop: 90,
   },
   settingsItem: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 25,
+    paddingVertical: 22,
     paddingHorizontal: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: "#c8b9b9ff",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E2E2E2",
   },
   settingsItemLeft: {
     flexDirection: "row",
@@ -199,15 +193,35 @@ const styles = StyleSheet.create({
   settingsItemText: {
     fontSize: 16,
     color: "#000",
-    fontWeight: "bold",
+    fontWeight: "500",
   },
-  // Profile container
-  profileContainer: {
-    flexDirection: "row",
+  bottomActions: {
+    marginTop: 30,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  deleteButton: {
+    borderWidth: 1.5,
+    borderColor: "#D91E18",
+    borderRadius: 30,
+    paddingVertical: 14,
     alignItems: "center",
-    padding: 16, // bigger padding
-    borderRadius: 12,
-    backgroundColor: "#fff",
-    elevation: 3,
+    marginBottom: 14,
+  },
+  deleteButtonText: {
+    color: "#D91E18",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  logoutButton: {
+    backgroundColor: "#D91E18",
+    borderRadius: 30,
+    paddingVertical: 14,
+    alignItems: "center",
+  },
+  logoutButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });

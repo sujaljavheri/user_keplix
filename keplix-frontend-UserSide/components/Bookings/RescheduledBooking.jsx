@@ -1,60 +1,68 @@
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-export default function RescheduledBooking({ navigation }) {
-  const [scale] = useState(new Animated.Value(0));
-
+export default function CancelBookingSuccess({ navigation }) {
   useEffect(() => {
-    Animated.spring(scale, {
-      toValue: 1,
-      friction: 3,
-      tension: 100,
-      useNativeDriver: true,
-    }).start();
+    const timer = setTimeout(() => {
+      navigation.navigate("BookingList"); // Navigate after 3 seconds
+    }, 3000);
 
-    const timeout = setTimeout(() => {
-      navigation.navigate('BookingList'); 
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Animated.View style={[styles.checkContainer, { transform: [{ scale }] }]}>
-        <Ionicons name="checkmark-circle" style={styles.checkIcon} />
-      </Animated.View>
-      <Text style={styles.message}>Your booking has been Rescheduled successfully.</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      {/* Image placeholder */}
+      <View style={styles.imageContainer}>
+        {/* Red checkmark button */}
+        <View style={styles.checkWrapper}>
+          <Ionicons name="checkmark" size={30} color="white" />
+        </View>
+      </View>
+
+      {/* Success message */}
+      <Text style={styles.text}>
+        Your booking has been cancelled successfully.
+      </Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
-  checkContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#E7F9F2',
-    borderRadius: 100,
-    width: 120,
-    height: 120,
+  imageContainer: {
+    width: 260,
+    height: 260,
+    borderRadius: 12,
+    backgroundColor: "#E0E0E0", // Grey placeholder
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    position: "relative",
   },
-  checkIcon: {
-    fontSize: 80,
-    color: '#4CAF50',
+  checkWrapper: {
+    position: "absolute",
+    bottom: -30, // half outside the box
+    alignSelf: "center",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#E63946", // Red circle
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
   },
-  message: {
-    marginTop: 20,
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#333',
-    fontFamily:'DM',
+  text: {
+    fontSize: 20,
+    color: "#555",
+    textAlign: "center",
+    marginTop: 40,
+    paddingHorizontal: 20,
   },
 });
